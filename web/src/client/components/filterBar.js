@@ -22,12 +22,8 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import { getQuery } from './../services/query-service';
 import PeriodicTmp from '../tmpDate/periodic';
-import Fab from '@material-ui/core/Fab';/// May be intresting
 import Popover from '@material-ui/core/Popover';
-import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import green from '@material-ui/core/colors/green';
@@ -204,7 +200,7 @@ useEffect( ()=>{
 
 
     return(
-        <AppBar elevation={1} style={{marginTop : '50px', borderTopRadius : 0}}>
+        <AppBar elevation={1} style={{marginTop : '100px', borderTopRadius : 0}}>
 
            {/* Large And Extram Large */}
 

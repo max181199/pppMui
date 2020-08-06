@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 const StyledPaperOneString = styled(Paper)`
     margin-top : 130px;
     width : 100vw;
-    height : calc(100vh - 130px);
+    height : calc(100vh - 230px);
     display : flex;
 `;
 
@@ -22,7 +22,7 @@ const StyledPaperTwoString = styled(Paper)`
 const StyledPaperZeroString = styled(Paper)`
     margin-top : 50px;
     width : 100vw;
-    height : calc(100vh - 50px );
+    height : calc(100vh - 50px);
     display : flex;
 `;
 

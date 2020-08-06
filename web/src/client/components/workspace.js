@@ -6,20 +6,27 @@ import { connect } from 'react-redux';
 
 
 const StyledPaperOneString = styled(Paper)`
-    margin-top : 130px;
+    margin-top : 140px;
     width : 100vw;
-    height : calc(100vh - 230px);
+    height : calc(100vh - 140px);
     display : flex;
 `;
 
 const StyledPaperTwoString = styled(Paper)`
-    margin-top : 210px;
+    margin-top : 110px;
     width : 100vw;
-    height : calc(100vh - 210px);
+    height : calc(100vh - 110px);
     display : flex;
 `;
 
 const StyledPaperZeroString = styled(Paper)`
+    margin-top : 60px;
+    width : 100vw;
+    height : calc(100vh - 60px);
+    display : flex;
+`;
+
+const StyledPaperZeroTwoString = styled(Paper)`
     margin-top : 50px;
     width : 100vw;
     height : calc(100vh - 50px);
@@ -59,15 +66,15 @@ function WorkSpace(props){
                         {props.children}
                     </StyledPaperTwoString>
                      :
-                    <StyledPaperZeroString elevation={0}>
+                    <StyledPaperZeroTwoString elevation={0}>
                         {props.children}
-                    </StyledPaperZeroString> 
+                    </StyledPaperZeroTwoString> 
                 }
             </Hidden>
             <Hidden only={['xl','lg','md','sm']}>
-                <StyledPaperZeroString elevation={0}>
+                <StyledPaperZeroTwoString elevation={0}>
                     {props.children}
-                </StyledPaperZeroString>
+                </StyledPaperZeroTwoString>
             </Hidden>
             <Hidden only={['lg','md','sm','xs']}>
                 <StyledPaperNullString elevation={0}>

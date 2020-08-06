@@ -5,10 +5,9 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Header from '../header/header';
-import FilterBar from '../filterBar'
+import FilterBar from '../filters/filterBar'
 import WorkSpace from '../workspace'
 import Table from '../table'
-import blue from '@material-ui/core/colors/blue';
 
 function Statistics( props ) {
 

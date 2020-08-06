@@ -15,7 +15,7 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 const LargeStyledToolbar = styled(Toolbar)`
-  min-height : 70px;
+  min-height : 60px;
   padding-right : 0px;
   padding-top : 0px;
   padding-bottom : 0px;

@@ -83,9 +83,6 @@ const updateFilters = (state, action) => {
 
           return {
             ...state.filters,
-            base: action.filterBarPayload.base,
-            nameArt: action.filterBarPayload.nameArt,
-            note: action.filterBarPayload.note,
             from: action.filterBarPayload.from === '' ? '0' : action.filterBarPayload.from ,
             to: action.filterBarPayload.to === '' ? '100' : action.filterBarPayload.to,
             period: action.filterBarPayload.period,

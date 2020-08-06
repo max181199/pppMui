@@ -222,7 +222,7 @@ const MediumStyledMenuItem = styled(MenuItem)`
 const StyledButton = styled(Button)`
     background-color : ${blue[800]};
     color : white;
-    fontSize : max( 16px , calc( 1px + 1vw));
+    font-size : max( 16px , calc( 1px + 1vw));
     margin-left : 0.7vw;
     margin-bottom : 2vh;
     padding : 0;

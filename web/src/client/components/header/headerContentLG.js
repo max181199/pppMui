@@ -13,12 +13,12 @@ import styled from 'styled-components';
 
 const StyledMainGrid = styled(Grid)`
     margin : 0;
-    height : 70px;
+    height : 60px;
 `;
 
 const StyledGrid = styled(Grid)`
     display : flex;
-    height : 70px;
+    height : 60px;
     align-items: center;
 
 `;
@@ -26,8 +26,8 @@ const StyledGrid = styled(Grid)`
 const StyledDivider = styled(Divider)`
     background-color : white;
     margin : 10px;
-    width : 3px;
-    height : 50px;
+    width : 2px;
+    height : 40px;
 `;
 
 const PPPTypografy = styled(Typography)`
@@ -37,14 +37,14 @@ const PPPTypografy = styled(Typography)`
 
 const TitleTypografy = styled(Typography)`
     margin : 0;
-    font-size : 20px;
+    font-size : 18px;
     line-height : 1;
     text-align : center;
 `;
 
 const TitleDateTypografy = styled(Typography)`
     margin-right : 20px;
-    font-size : 23px;
+    font-size : 21px;
     line-height : 1;
     text-align : center;
 `;
@@ -52,7 +52,7 @@ const TitleDateTypografy = styled(Typography)`
 const StyledIconButton = styled(IconButton)`
     margin : 10px;
     padding : 0;
-    font-size : 40px;
+    font-size : 30px;
 `;
 
 const StyledIcon = styled(FilterListIcon)`
@@ -62,26 +62,26 @@ const StyledIcon = styled(FilterListIcon)`
 
 const StyledTabOne= styled(Tab)`
     padding : 8px;
-    height  : 70px;
-    font-size : 20px;
-    min-width : 430px;
+    height  : 60px;
+    font-size : 18px;
+    min-width : 400px;
 `;
 
 const StyledTabTwo= styled(Tab)`
     padding : 8px;
-    height  : 70px;
-    font-size : 20px;
-    min-width : 150px;
+    height  : 60px;
+    font-size : 18px;
+    min-width : 120px;
 `;
   
 const StyleTabs = styled(Tabs)`
     padding : 0;
     margin : 0;
-    min-width : 580px;
+    min-width : 520px;
     & .MuiTabs-indicator {
         background-color : white;
         height : 3px;
-        bottom : 10px;
+        bottom : 8px;
     }
 `; 
 

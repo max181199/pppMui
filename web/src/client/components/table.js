@@ -2,7 +2,6 @@ import React , { useState, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 import {Box,Typography} from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -145,23 +144,15 @@ const TypographySUPR = styled(Typography)`
     margin : 0 ;
 `;
 
-  const StyledTableSortLabel = withStyles({
-        icon : {
-            fontSize : 'calc( 10px + 0.7vw)',
-            opacity: 1,
-            color: grey[400],
-            marginLeft : '2px',
-            marginRight : '2px',
-        },
-        active: {},
-        root : {
-            '&$active': {
-                '&& $icon' : {
-                    color: 'black',
-                }
-            },
-        }
-  })(TableSortLabel);
+  const StyledTableSortLabel = styled(TableSortLabel)`
+        & .MuiSvgIcon-root{
+            font-size : calc( 10px + 0.7vw);
+            opacity: 1;
+            color: ${ (props) => props.active ? 'black' :  grey[400]} !important;
+            margin-left : 2px;
+            margin-right : 2px;
+        };
+  `;
 
 function table(props){
 

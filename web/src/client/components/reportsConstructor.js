@@ -1,4 +1,4 @@
-import React, { useEffect , useState} from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
@@ -24,27 +24,20 @@ const SearchPaper = styled(Paper)`
     height     : 8vh;
     min-height : 3.5vw;
     border-radius : 0px;
-    width : 44.4vw;
+    width : 44.6vw;
     min-width : 608px;
-    border-bottom : 1px solid lightgrey;
+    border-bottom : 2px solid lightgrey;
 `;
 
 const MediumSearchPaper = styled(Paper)`
     min-height : 60px;
     height     : 6vh;
     border-radius : 0px;
-    width : 44.4vw;
+    width : 44.5vw;
     min-width : 608px;
-    border-bottom : 1px solid lightgrey;
+    border-bottom : 2px solid lightgrey;
 `;
 
-const Simplypaper = styled(Paper)`
-    border : 1px solid lightgrey;
-    border-radius : 0px;
-    width : 44.6vw;
-    min-width : 610px;
-    min-height : 100%;
-`;
 
 
 const StyledTextField = styled(TextField)`
@@ -96,7 +89,7 @@ const MediumStyledTextField = styled(TextField)`
 
 
 const LargePaperBlock = styled(Paper)`
-    width : 44.4vw;
+    width : 44.6vw;
     min-width : 608px;
     padding-top : calc( 1.8vw - 2px ) ;
     border-radius : 0px;
@@ -348,7 +341,6 @@ function Main( props ) {
         )
     }
     return(
-        <Simplypaper>
         <Grid
             container
             direction="column"
@@ -936,7 +928,6 @@ function Main( props ) {
                 </LargePaperBlock>              
             </Grid>
         </Grid>
-        </Simplypaper>
     )
 }
 

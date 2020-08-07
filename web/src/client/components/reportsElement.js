@@ -17,9 +17,10 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 const LargePaperBlock = styled(Paper)`
     width : 44.6vw;
-    min-width : 588px;
+    min-width : 608px;
     border-radius : 0px;
-    border : solid 0.5px lightgrey;
+    border-top : solid 1px lightgrey;
+    border-bottom : solid 1px lightgrey;
     padding-top : max(2vh , 10px);
     padding-bottom : max(2vh , 10px);
     padding-left : max(1vw , 5px);

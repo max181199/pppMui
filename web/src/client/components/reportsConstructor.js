@@ -22,25 +22,36 @@ import { filtersChanged, filtersReset } from '../actions'
 const SearchPaper = styled(Paper)`
     min-height : 80px;
     height     : 8vh;
+    min-height : 3.5vw;
     border-radius : 0px;
-    width : 46vw;
-    min-width : 628px;
+    width : 44.4vw;
+    min-width : 608px;
+    border-bottom : 1px solid lightgrey;
 `;
 
 const MediumSearchPaper = styled(Paper)`
     min-height : 60px;
     height     : 6vh;
     border-radius : 0px;
-    width : 46vw;
-    min-width : 628px
+    width : 44.4vw;
+    min-width : 608px;
+    border-bottom : 1px solid lightgrey;
+`;
+
+const Simplypaper = styled(Paper)`
+    border : 1px solid lightgrey;
+    border-radius : 0px;
+    width : 44.6vw;
+    min-width : 610px;
+    min-height : 100%;
 `;
 
 
 const StyledTextField = styled(TextField)`
-    margin-left : 0.7vw;
-    margin-right : 0.7vw;
+    margin-left : 0.5vw;
+    margin-right : 0.5vw;
     min-width : 194.391px;
-    width : 13.5vw;
+    width : 13.3vw;
     label {
         font-size : calc( 1px + 1vw )
     }
@@ -69,9 +80,9 @@ const StyledReportCountField = styled(TextField)`
 
 
 const MediumStyledTextField = styled(TextField)`
-    margin-left : 0.7vw;
-    margin-right : 0.7vw;
-    width : 13.5vw;
+    margin-left : 0.5vw;
+    margin-right : 0.5vw;
+    width : 13.3vw;
     min-width : 180px;
     label {
         font-size : 16px
@@ -85,15 +96,17 @@ const MediumStyledTextField = styled(TextField)`
 
 
 const LargePaperBlock = styled(Paper)`
-    width : 46vw;
-    min-width : 628px;
-    margin-top : calc( 1.5vw - 2px ) ;
+    width : 44.4vw;
+    min-width : 608px;
+    padding-top : calc( 1.8vw - 2px ) ;
+    border-radius : 0px;
 `;
 
 const StyledToggleButton = styled(ToggleButton)`
     margin-right : 3vw;
     font-size : 1vw;
     border-width : 2px;
+    with : 10vw;
 `;
 
 
@@ -108,8 +121,8 @@ const MediumStyledToggleButton = styled(ToggleButton)`
     margin-left : 3vw;
     font-size : 12px;
     border-width : 2px;
-    width : 18vw;
-    min-width : 250px;
+    width : 16vw;
+    min-width : 200px;
 `;
 
 const AnotherMediumStyledToggleButton = styled(ToggleButton)`
@@ -335,6 +348,7 @@ function Main( props ) {
         )
     }
     return(
+        <Simplypaper>
         <Grid
             container
             direction="column"
@@ -343,7 +357,7 @@ function Main( props ) {
         >
             <Grid item>
                 <Hidden only={['md','sm','xs']}>
-                    <SearchPaper elevation={1}>
+                    <SearchPaper elevation = {0}>
                         <Grid
                             container
                             direction="row"
@@ -383,7 +397,7 @@ function Main( props ) {
                     </SearchPaper>
                 </Hidden>
                 <Hidden only={['xl','lg']}>
-                    <MediumSearchPaper elevation={1}>
+                    <MediumSearchPaper elevation={0}>
                         <Grid
                             container
                             direction="row"
@@ -459,7 +473,7 @@ function Main( props ) {
                     </LargePaperBlock>
                 </Hidden>
                 <Hidden only={['xl','lg']}>
-                    <Paper elevation={0} style={{width : '46vw',marginTop : '2vh',minWidth : '628px'}}>
+                    <LargePaperBlock elevation={0}>
                         <Grid
                             container
                             direction="row"
@@ -493,7 +507,7 @@ function Main( props ) {
                                 </MediumStyledToggleButton>
                             </Grid>
                         </Grid>    
-                    </Paper>
+                    </LargePaperBlock>
                 </Hidden>
             </Grid>
             <Grid item>
@@ -922,6 +936,7 @@ function Main( props ) {
                 </LargePaperBlock>              
             </Grid>
         </Grid>
+        </Simplypaper>
     )
 }
 

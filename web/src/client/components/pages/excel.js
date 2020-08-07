@@ -1,206 +1,280 @@
 import React from 'react';
-import grey from '@material-ui/core/colors/grey';
+import blue from '@material-ui/core/colors/blue';
 import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import { Typography , Hidden } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import WorkSpaceExcel from '../excelWorkspace';
 import ReportConstruction from '../reportsConstructor';
 import Reports from '../reports'
 import ExcelHeader from '../excelHeader/excelHeader'
-
-const LeftPapper = withStyles({
-    root:{
-        width  : '45vw',
-        height : '100%',
-        minWidth : '608px',
-    }
-})( Paper )
-
-const RightPapper = withStyles({
-    root:{
-        width  : '45vw',
-        height : '100%',
-        minWidth : '608px',
-    
-    }
-})( Paper )
-
-const NormalLeftToolbarPapper = withStyles({
-    root:{
-        width  : '46vw',
-        minWidth : '628px',
-        height : '6vh',
-        minHeight : '50px',
-        backgroundColor : grey[300],
-        borderRadius : '0px',
-        display : 'flex',
-        position : 'absolute',
-        top : 'calc( 2vh + 50px )',
-        left: '2vw',
-        zIndex : '3'
-    }
-})(Paper)
-
-const LargeLeftToolbarPapper = withStyles({
-    root:{
-        width  : '46vw',
-        minWidth : '628px',
-        height : '6vh',
-        minHeight : 'calc( 100px + 1vw )',
-        backgroundColor : grey[300],
-        borderRadius : '0px',
-        display : 'flex',
-        position : 'absolute',
-        top : '2vh',
-        left: '2vw',
-        zIndex : '3'
-    }
-})(Paper)
+import styled from 'styled-components';
 
 
-const NormalRightToolbarPapper = withStyles({
-    root:{
-        width  : '46vw',
-        minWidth : '628px',
-        height : '6vh',
-        minHeight : '50px',
-        backgroundColor : grey[300],
-        borderRadius : '0px',
-        display : 'flex',
-        position : 'absolute',
-        top : 'calc( 2vh + 50px )',
-        left: 'calc( max( 628px , 46vw) + 6vw)',
-        zIndex : '3'
-    }
-})(Paper)
+const WorkPaper = styled(Paper)`
+    width : 100vw;
+    min-width : 1360px;
+`;
 
-const LargeRightToolbarPapper = withStyles({
-    root:{
-        width  : '46vw',
-        minWidth : '628px',
-        height : '6vh',
-        minHeight : 'calc( 100px + 1vw )',
-        backgroundColor : grey[300],
-        borderRadius : '0px',
-        display : 'flex',
-        position : 'absolute',
-        top : '2vh',
-        left: 'calc( max( 628px , 46vw) + 6vw)',
-        zIndex : '3'
-    }
-})(Paper)
+const XLargeLeftToolbarPapper = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : 6vh;
+    min-height : max( 70px , 6vh );
+    background-color : ${blue[800]};
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 10px );
+    left: 2vw;
+    z-index : 3;
+    display : flex;
+`;
 
+const XLargeLeftWorkspace = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : calc( 96vh - max( 70px , 6vh ) );
+    border : 2px solid lightgrey;
+    background-color : white;
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 10px + max( 70px , 6vh ));
+    left: 2vw;
+    z-index : 3;
+    display : block;
+    overflow-y : auto;
+`;
 
+const XLargeRightToolbarPapper = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : 6vh;
+    min-height : max( 70px , 6vh );
+    background-color : ${blue[800]};
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 10px );
+    left: calc( 6vw + max( 46vw , 628px) );
+    z-index : 3;
+    display : flex;
+`;
 
-const Typography6on8  = withStyles({
-    root:{
-        fontSize : 'calc( 6px + 0.8vw)',
-        lineHeight : '1.1',
-        textAlign : 'center',
-        alignSelf : 'center',
-        
-    }
-})(Typography)
+const XLargeRightWorkspace = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : calc( 96vh - max( 70px , 6vh ) );
+    border : 2px solid lightgrey;
+    background-color : white;
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 10px + max( 70px , 6vh ));
+    left: calc( 6vw + max( 46vw , 628px) );
+    z-index : 3;
+    display : block;
+    overflow-y : auto;
+`;
+
+const MediumLeftToolbarPapper = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : 50px;
+    min-height : 50px;
+    background-color : ${blue[800]};
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 50px + 10px );
+    left: 2vw;
+    z-index : 3;
+    display : flex;
+`;
+
+const MediumLeftWorkspace = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : calc( 96vh - 110px  );
+    background-color : white;
+    border : 2px solid lightgrey;
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 100px + 10px );
+    left: 2vw;
+    z-index : 3;
+    display : block;
+    overflow-y : auto;
+`;
+
+const LargeLeftToolbarPapper = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : 6vh;
+    min-height : max( 70px , 6vh );
+    background-color : ${blue[800]};
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 60px + 10px );
+    left: 2vw;
+    z-index : 3;
+    display : flex;
+`;
+
+const LargeLeftWorkspace = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : calc( 96vh - 70px - max( 70px , 6vh ) );
+    border : 2px solid lightgrey;
+    background-color : white;
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 60px + 10px + max( 70px , 6vh ));
+    left: 2vw;
+    z-index : 3;
+    display : block;
+    overflow-y : auto;
+`;
+
+const MediumRightToolbarPapper = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : 50px;
+    min-height : 50px;
+    background-color : ${blue[800]};
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 50px + 10px );
+    left: calc( 6vw + max( 46vw , 628px) );
+    z-index : 3;
+    display : flex;
+`;
+
+const MediumRightWorkspace = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : calc( 96vh - 110px  );
+    background-color : white;
+    border : 2px solid lightgrey;
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 100px + 10px );
+    left: calc( 6vw + max( 46vw , 628px) );
+    z-index : 3;
+    display : block;
+    overflow-y : auto;
+
+`;
+
+const LargeRightToolbarPapper = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : 6vh;
+    min-height : max( 70px , 6vh );
+    background-color : ${blue[800]};
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 60px + 10px );
+    left: calc( 6vw + max( 46vw , 628px) );
+    z-index : 3;
+    display : flex;
+`;
+
+const LargeRightWorkspace = styled(Paper)`
+    width  : 46vw;
+    min-width : 628px;
+    height : calc( 96vh - 70px - max( 70px , 6vh ) );
+    border : 2px solid lightgrey;
+    background-color : white;
+    border-radius : 0px;
+    position : absolute;
+    top : calc( 2vh + 60px + 10px + max( 70px , 6vh ));
+    left: calc( 6vw + max( 46vw , 628px) );
+    z-index : 3;
+    display : block;
+    overflow-y : auto;
+`;
+
+const TypographyTitleLarge = styled(Typography)`
+    font-size : calc( 6px + 1.2vw);
+    line-height : 1.1;
+    color : white;
+    width  : 46vw;
+    min-width : 628px;
+    align-self : center;
+    text-align : center;
+`;
+
+const TypographyTitleMedium = styled(Typography)`
+    font-size : 24px;
+    line-height : 1.1;
+    color : white;
+    width  : 46vw;
+    min-width : 628px;
+    align-self : center;
+    text-align : center;
+`;
 
 function main(){
     return (
-        <Box>
+        <WorkPaper>
             <Hidden only='xl'>
                 <ExcelHeader/>
             </Hidden>
-            <Box style={{display : 'flex'}}>
-                <WorkSpaceExcel>
-                    <LeftPapper style={{zIndex : '2'}} elevation={0}>
-                        <Grid
-                            container
-                            direction="column"
-                            justify="flex-start"
-                            alignItems="flex-start"
-                        >
-                            <Grid item>
-                                <Hidden only='xl'>
-                                    <NormalLeftToolbarPapper elevation={1}>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justify="center"
-                                            alignItems="center"
-                                        >
-                                            <Grid item>
-                                                <Typography6on8 variant='h6' style={{color : 'black'}}>Конструктор отчетов</Typography6on8>
-                                            </Grid>
-                                        </Grid>
-                                    </NormalLeftToolbarPapper>
-                                </Hidden>
-                                <Hidden only={['lg','md','sm','xs']}>
-                                    <LargeLeftToolbarPapper elevation={1}>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justify="center"
-                                            alignItems="center"
-                                        >
-                                            <Grid item>
-                                                <Typography6on8 variant='h6' style={{color : 'black'}}>Конструктор отчетов</Typography6on8>
-                                            </Grid>
-                                        </Grid>
-                                    </LargeLeftToolbarPapper>
-                                </Hidden>         
-                            </Grid>
-                            <Grid item style={{overflowY : 'auto'}}>
-                                <ReportConstruction/>
-                            </Grid>
-                        </Grid>    
-                    </LeftPapper>
-                </WorkSpaceExcel>
-                <WorkSpaceExcel >
-                    <RightPapper elevation={0}>
-                        <Grid
-                            container
-                            direction="column"
-                            justify="flex-start"
-                            alignItems="center"
-                        >
-                            <Grid item>
-                                <Hidden only='xl'>
-                                    <NormalRightToolbarPapper elevation={1}>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justify="center"
-                                            alignItems="center"
-                                        >
-                                            <Grid item>
-                                                <Typography6on8 variant='h6' style={{color : 'black'}}>Готовые отчеты</Typography6on8>
-                                            </Grid>
-                                        </Grid>
-                                    </NormalRightToolbarPapper>
-                                </Hidden>
-                                <Hidden only={['lg','md','sm','xs']}>
-                                    <LargeRightToolbarPapper elevation={1}>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justify="center"
-                                            alignItems="center"
-                                        >
-                                            <Grid item>
-                                                <Typography6on8 variant='h6' style={{color : 'black'}}>Готовые отчеты</Typography6on8>
-                                            </Grid>
-                                        </Grid>
-                                    </LargeRightToolbarPapper>
-                                </Hidden>
-                            </Grid>
-                            <Grid item>
-                                <Reports/>
-                            </Grid>
-                        </Grid>  
-                    </RightPapper>
-                </WorkSpaceExcel>
-            </Box>
-        </Box> 
+            <Hidden only={['lg','md','sm','xs']}>
+                <XLargeLeftToolbarPapper elevation={1}>
+                    <TypographyTitleLarge variant='h6'>
+                        Конструктор отчетов
+                    </TypographyTitleLarge>
+                </XLargeLeftToolbarPapper>
+                <XLargeLeftWorkspace>
+                    <ReportConstruction/>
+                </XLargeLeftWorkspace>
+            </Hidden>
+            <Hidden only={['xl','md','sm','xs']}>
+                <LargeLeftToolbarPapper elevation={1}>
+                    <TypographyTitleLarge variant='h6'>
+                        Конструктор отчетов
+                    </TypographyTitleLarge>
+                </LargeLeftToolbarPapper>
+                <LargeLeftWorkspace>
+                    <ReportConstruction/>
+                </LargeLeftWorkspace>
+            </Hidden>
+            <Hidden only={['xl','lg']}>
+                <MediumLeftToolbarPapper elevation={1}>
+                    <TypographyTitleMedium variant='h6'>
+                        Конструктор отчетов
+                    </TypographyTitleMedium>
+                </MediumLeftToolbarPapper>
+                <MediumLeftWorkspace>
+                    <ReportConstruction/>
+                </MediumLeftWorkspace>
+            </Hidden>
+            <Hidden only={['lg','md','sm','xs']}>
+                <XLargeRightToolbarPapper elevation={1}>
+                    <TypographyTitleLarge variant='h6'>
+                        Отчетоы
+                    </TypographyTitleLarge>
+                </XLargeRightToolbarPapper>
+                <XLargeRightWorkspace>
+                    <Reports/>
+                </XLargeRightWorkspace>
+            </Hidden>
+            <Hidden only={['xl','md','sm','xs']}>
+                <LargeRightToolbarPapper elevation={1}>
+                    <TypographyTitleLarge variant='h6'>
+                        Отчеты
+                    </TypographyTitleLarge>
+                </LargeRightToolbarPapper>
+                <LargeRightWorkspace>
+                    <Reports/>
+                </LargeRightWorkspace>
+            </Hidden>
+            <Hidden only={['xl','lg']}>
+                <MediumRightToolbarPapper elevation={1}>
+                    <TypographyTitleMedium variant='h6'>
+                        Отчеты
+                    </TypographyTitleMedium>
+                </MediumRightToolbarPapper>
+                <MediumRightWorkspace>
+                    <Reports/>
+                </MediumRightWorkspace>
+            </Hidden>
+        </WorkPaper>
     )
 }
 

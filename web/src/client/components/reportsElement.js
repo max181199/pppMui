@@ -16,7 +16,7 @@ import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import WarningIcon from '@material-ui/icons/Warning';
 
 const LargePaperBlock = styled(Paper)`
-    width : 44.9vw;
+    width : 44.6vw;
     min-width : 588px;
     border-radius : 0px;
     border : solid 0.5px lightgrey;

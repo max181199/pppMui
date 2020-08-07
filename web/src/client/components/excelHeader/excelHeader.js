@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ContentLG from './excelHeaderContentLG'
 import ContentMD from './excelHeaderContentMD'
 import ContentXS from './excelHeaderContentXS'
+import ContentSM from './excelHeaderContentSM'
 import Date from '../../tmpDate/date';
 
 const StyledToolbar = styled(Toolbar)`
@@ -28,9 +29,14 @@ const Header = () => {
           <ContentLG date={Date[0]['update_date']} />
         </LargeStyledToolbar>
       </Hidden>
-      <Hidden only={['lg','xs']}>
+      <Hidden only={['lg','sm','xs']}>
         <StyledToolbar>
           <ContentMD date={Date[0]['update_date']} />
+        </StyledToolbar>
+      </Hidden>
+      <Hidden only={['lg','md','xs']}>
+        <StyledToolbar>
+          <ContentSM/>
         </StyledToolbar>
       </Hidden>
       <Hidden only={['lg','md','sm']}>

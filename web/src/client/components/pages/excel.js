@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
-import ExcelHeader from '../excelHeader';
-import { createMuiTheme,ThemeProvider, withTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
+import React from 'react';
 import grey from '@material-ui/core/colors/grey';
-import blueGrey from '@material-ui/core/colors/blueGrey';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import { AppBar } from '@material-ui/core';
 import { Typography , Hidden } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import WorkSpaceExcel from '../excelWorkspace';
 import ReportConstruction from '../reportsConstructor';
 import Reports from '../reports'
-import styled from 'styled-components';
+import ExcelHeader from '../excelHeader/excelHeader'
 
 const LeftPapper = withStyles({
     root:{

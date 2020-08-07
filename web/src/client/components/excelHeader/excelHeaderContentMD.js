@@ -1,12 +1,9 @@
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import { connect } from "react-redux"
-import Tooltip from '@material-ui/core/Tooltip';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { changeCurrentPage , changeCurrentFilterIcon } from '../../actions';
-import IconButton from '@material-ui/core/IconButton';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import { changeCurrentPage  } from '../../actions';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
@@ -49,17 +46,6 @@ const TitleDateTypografy = styled(Typography)`
     text-align : center;
 `;
 
-const StyledIconButton = styled(IconButton)`
-    margin : 10px;
-    padding : 0;
-    font-size : 28px;
-`;
-
-const StyledIcon = styled(FilterListIcon)`
-    color : white;
-    transform: ${props => (props.filter === "close" ? "rotate(0deg)" : "rotate(180deg)") };
-`;
-
 const StyledTabOne= styled(Tab)`
     padding : 8px;
     height  : 50px;
@@ -86,14 +72,7 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function MediumHeaderContent(props){
-    const { currentPage , currentFilterIcon, changeCurrentPage ,changeCurrentFilterIcon, date } = props
-    const changeIcon = () => {
-        currentFilterIcon === "close" 
-        ?
-        changeCurrentFilterIcon('open') 
-        :
-        changeCurrentFilterIcon('close')
-    } 
+    const { currentPage , changeCurrentPage , date } = props
     return(
         <StyledMainGrid container
           direction="row"
@@ -106,15 +85,6 @@ function MediumHeaderContent(props){
                 <TitleTypografy variant='h4' > Примечания на  <br/> правой панели </TitleTypografy>
             </StyledGrid>
             <StyledGrid item>
-                <Tooltip  
-                    title={currentFilterIcon === "close" ? "Показать фильтры" : "Скрыть фильтры"}
-                > 
-                    <StyledIconButton 
-                      onClick={ ()=> (changeIcon()) } 
-                    >
-                      <StyledIcon fontSize='inherit' filter={currentFilterIcon}/> 
-                    </StyledIconButton>
-                </Tooltip>
                 <StyleTabs value={currentPage} onChange={(e,val)=>{changeCurrentPage(val)}}>
                     <StyledTabOne wrapped  label="Клики и действия по ППП за период" value={'statistics'}/>
                     <StyledTabTwo wrapped  label=" Отчеты " value={'excel'} />
@@ -128,8 +98,6 @@ function MediumHeaderContent(props){
 }
 export default connect((store)=>({
     currentPage : store.optional.page,
-    currentFilterIcon : store.optional.filterIcon 
 }),{
     changeCurrentPage,
-    changeCurrentFilterIcon
 })(MediumHeaderContent)

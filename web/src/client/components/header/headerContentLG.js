@@ -64,7 +64,7 @@ const StyledTabOne= styled(Tab)`
     padding : 8px;
     height  : 60px;
     font-size : 18px;
-    min-width : 400px;
+    min-width : 420px;
 `;
 
 const StyledTabTwo= styled(Tab)`
@@ -77,7 +77,7 @@ const StyledTabTwo= styled(Tab)`
 const StyleTabs = styled(Tabs)`
     padding : 0;
     margin : 0;
-    min-width : 520px;
+    min-width : 540px;
     & .MuiTabs-indicator {
         background-color : white;
         height : 3px;

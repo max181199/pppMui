@@ -1,8 +1,5 @@
-import React, { useEffect , useCallback, useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { newPeriodsList } from '../../actions';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Header from '../header/header';
 import FilterBar from '../filters/filterBar'
@@ -10,7 +7,6 @@ import WorkSpace from '../workspace'
 import Table from '../table'
 
 function Statistics( props ) {
-
     const { filterIcon , test } = props;
         // console.group( 'BEGIN' )
         //     console.log('base: ' + test.base)
@@ -32,30 +28,25 @@ function Statistics( props ) {
         //     console.log('fix: ' + test.fix)
         // console.groupEnd( 'END')
     return(
-            <Grid 
-                container
-                direction="column"
-                justify="flex-start"
-                alignItems="flex-start" 
-            >
-                <Hidden only='xl'>
-                    <Grid item >
-                        <Header/>         
-                    </Grid>
-                    <Grid item>
-                    { 
-                            (   filterIcon === "open" ?
-                                <FilterBar/> : <div></div> )
-                    }    
-                    </Grid>
-                </Hidden>    
-                <Grid item>
-                    <WorkSpace >
-                    <Table/>
-                    </WorkSpace>    
-                </Grid>
-            </Grid>
+        <div> 
+            <Hidden only='xl'>
+                <Header/>         
+                { 
+                    filterIcon === "open" 
+                    ?
+                    <FilterBar/> 
+                    : 
+                    null 
+                }    
+            </Hidden>    
+            <WorkSpace >
+                <Table/>
+            </WorkSpace> 
+        </div>          
     )
 }
 
-export default connect( store =>( {filterIcon : store.optional.filterIcon, test : store.filters,}))(Statistics)
+export default connect( store =>( {
+    filterIcon : store.optional.filterIcon,
+    test : store.filters,
+}))(Statistics)

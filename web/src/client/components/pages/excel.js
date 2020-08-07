@@ -247,7 +247,7 @@ function main(){
             <Hidden only={['lg','md','sm','xs']}>
                 <XLargeRightToolbarPapper elevation={1}>
                     <TypographyTitleLarge variant='h6'>
-                        Отчетоы
+                        Отчеты
                     </TypographyTitleLarge>
                 </XLargeRightToolbarPapper>
                 <XLargeRightWorkspace>

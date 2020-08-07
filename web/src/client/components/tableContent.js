@@ -473,7 +473,7 @@ function tableContent( props){
                         ?
                         [
                             <Typography8on6 key={'cop1'} variant='body1'>{snippet['copy_count']}</Typography8on6>,
-                            <Typography8on6Grey key={'cop2'} variant='body1' style={{color : '#9F9F9F'}}>{`+NaN`}</Typography8on6Grey>
+                            <Typography8on6Grey key={'cop2'} variant='body1'>{`+NaN`}</Typography8on6Grey>
                         ]
                         :
                             snippet['copy_count']-snippet['comp_copy_count'] > 0

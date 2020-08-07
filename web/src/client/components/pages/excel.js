@@ -2,7 +2,8 @@ import React from 'react';
 import blue from '@material-ui/core/colors/blue';
 import Paper from '@material-ui/core/Paper';
 import { Typography , Hidden } from '@material-ui/core';
-import ReportConstruction from '../reportsConstructor';
+import ReportConstructionLG from '../reportsConstructors/reportsConstructorLG'
+import ReportConstructionMD from '../reportsConstructors/reportsConstructorMD'
 import Reports from '../reports'
 import ExcelHeader from '../excelHeader/excelHeader'
 import styled from 'styled-components';
@@ -221,7 +222,7 @@ function main(){
                     </TypographyTitleLarge>
                 </XLargeLeftToolbarPapper>
                 <XLargeLeftWorkspace>
-                    <ReportConstruction/>
+                    <ReportConstructionLG/>
                 </XLargeLeftWorkspace>
             </Hidden>
             <Hidden only={['xl','md','sm','xs']}>
@@ -231,7 +232,7 @@ function main(){
                     </TypographyTitleLarge>
                 </LargeLeftToolbarPapper>
                 <LargeLeftWorkspace>
-                    <ReportConstruction/>
+                    <ReportConstructionLG/>
                 </LargeLeftWorkspace>
             </Hidden>
             <Hidden only={['xl','lg']}>
@@ -241,7 +242,7 @@ function main(){
                     </TypographyTitleMedium>
                 </MediumLeftToolbarPapper>
                 <MediumLeftWorkspace>
-                    <ReportConstruction/>
+                    <ReportConstructionMD/>
                 </MediumLeftWorkspace>
             </Hidden>
             <Hidden only={['lg','md','sm','xs']}>

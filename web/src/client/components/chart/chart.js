@@ -4,6 +4,24 @@ import { Highcharts, defaultOptions } from '../../services/highcharts';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import styled from 'styled-components';
+
+const StyledBox = styled(Box)`
+  min-width : 1900px;
+  min-height : 400px;
+  width : 98vw;
+  height : 19%;
+  display: absolute;
+
+`;
+
+const StyledIconButton = styled(IconButton)`
+  font-size : calc( 30px + 0.8vw);
+  z-index : 1;
+  margin-bottom : -60px;
+  margin-left : 0px; 
+`;
+
 
 class Chart extends Component {
 
@@ -61,18 +79,20 @@ class Chart extends Component {
     }
   }
 
+
+
   render() {
     return (
-      <Box style={{minWidth : '1900px',minHeight:'400px',width : '98vw',height : '19%',display:'absolute'}}>
-          <IconButton style={{fontSize : 'calc( 30px + 0.8vw)',zIndex : '1',marginBottom : '-60px',marginLeft : '-15px'}} onClick={this.props.onClose}>
+      <StyledBox>
+          <StyledIconButton onClick={this.props.onClose}>
             <CloseIcon fontSize='inherit'/>
-          </IconButton>
+          </StyledIconButton>
           <HighchartsReact
             highcharts={Highcharts}
             options={this.state}
             constructorType = { 'stockChart' }
           />
-      </Box>
+      </StyledBox>
     )
   }
 }

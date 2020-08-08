@@ -39,7 +39,7 @@ const StyledMediumPapper = styled(Paper)`
 `;
 
 
-function FilterBar() {
+function FilterBar(props) {
     return(
         <div>
             <Hidden only={['md','sm','xs']} >
@@ -52,7 +52,7 @@ function FilterBar() {
             <Hidden only={['lg','sm','xs']} >
             <StyledMediumAppBar elevation={1}>
                 <StyledMediumPapper elevation={1} >
-                    <FilterBarContentMD/>
+                    <FilterBarContentMD history={props.history}/>
                 </StyledMediumPapper>
             </StyledMediumAppBar>
             </Hidden>

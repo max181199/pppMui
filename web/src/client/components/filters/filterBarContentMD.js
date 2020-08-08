@@ -25,6 +25,7 @@ import blue from '@material-ui/core/colors/blue';
 import green from '@material-ui/core/colors/green';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {useLocation} from "react-router-dom";
 
 
 const StyledTextField = styled(TextField)`
@@ -192,19 +193,23 @@ function filterBarContentLG(props) {
     const { filters , filtersChangedSearch , filtersChangedFilterBar , clickCancel } = props
     const [ periods , setPeriods] = useState([]);
     const [ isAccordionOpen , setIsAccordionOpen ] = useState(false)
-    const [ isBlock , setIsBlock ] = useState(true);
     const [ localFilters , setLocalFilters ] = useState({
         period : '',
         profile : 'Все профили',
         to : '',
         from : '',
         compProfile : 'Не выбрано',
-        compPeriod : 'Не выбрано'
+        compPeriod : 'Не выбрано',
+        status : 'default'
     })
     const [ searchFilters, setSearchFilters ] = useState({ 
         base : '',
         note : '',
         nameArt : ''
+    })
+    const [ status, setStatus ] = useState({
+        filters : 'default',
+        search : 'default'
     })
 
     const updateLocalFilters = (obj) =>{
@@ -215,8 +220,30 @@ function filterBarContentLG(props) {
         setSearchFilters({...searchFilters , ...obj})
     }
 
+    const updateStatus = (obj)=>{
+        setStatus({...status,...obj})
+    }
+
+    const toURL = (params)=>{
+        let paramsForQuery = '';
+        for (let prop in params) {
+          paramsForQuery += `_${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+          paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery
+    }
+
+    const toFilters = (obj)=>{
+        return( {...filters , ...obj })
+    }
+
+    
+
     useEffect( ()=>{
-        if ( !isBlock ){
+        if(status.filters !== 'initialize' && status.filters  !== 'default' ){
+            console.log('Kill me')
             filtersChangedFilterBar({
                 from : localFilters.from,
                 to : localFilters.to,
@@ -225,35 +252,71 @@ function filterBarContentLG(props) {
                 compPeriod : localFilters.compPeriod,
                 compProfile : localFilters.compProfile,
             })
+            props.history.replace(toURL(toFilters(localFilters)))
+        }
+        if(status.filters === 'initialize'){
+            updateStatus({filters : 'none'})
         }
     },[localFilters])
 
+
+    const url = new URLSearchParams(props.history.location.search);
+
     useEffect(()=>{
-        updateLocalFilters({
-            from : filters.from === '0' ? '' : filters.from,
-            to : filters.to === '100' ? '' : filters.to,
-            period : filters.period,
-            profile : filters.profile,
-            compPeriod : filters.compPeriod,
-            compProfile : filters.compProfile,
-        })
-        updateSearchFilters({
-            base : filters.base,
-            nameArt : filters.nameArt,
-            note : filters.note,
+        if ( props.history.location.search === ''){
+            console.log('once again')
+            updateLocalFilters({
+                from : filters.from === '0' ? '' : filters.from,
+                to : filters.to === '100' ? '' : filters.to,
+                period : filters.period,
+                profile : filters.profile,
+                compPeriod : filters.compPeriod,
+                compProfile : filters.compProfile,
+            })
+            updateSearchFilters({
+                base : filters.base,
+                nameArt : filters.nameArt,
+                note : filters.note,
+            })
+        }
+        else {
+            console.log(props.history)
+            updateLocalFilters({
+                from : url.get('_from') === '0' ? '' : url.get('_from'),
+                to :  url.get('_to') === '100' ? '' : url.get('_to'),
+                period : url.get('_period'),
+                profile : url.get('_profile'),
+                compPeriod : url.get('_compPeriod'),
+                compProfile : url.get('_compProfile'),
+            })
+            updateSearchFilters({
+                base : url.get('_base'),
+                nameArt : url.get('_nameArt'),
+                note : url.get('_note'),
+            })
+        }
+        updateStatus({
+            filters : 'initialize',
+            search : 'initialize'
         })
         setPeriods(PeriodicTmp)
-        setIsBlock(false)
     },[])
 
     useEffect( ()=>{
-        if (!isAccordionOpen){
-            filtersChangedSearch({
-                base : searchFilters.base,
-                nameArt : searchFilters.nameArt,
-                note : searchFilters.note
-            })
+        if(status.search !== 'initialize' && status.search  !== 'default' ){
+            console.log('Here is Jony')
+            if (!isAccordionOpen){
+                filtersChangedSearch({
+                    base : searchFilters.base,
+                    nameArt : searchFilters.nameArt,
+                    note : searchFilters.note
+                })
+                props.history.replace(toURL(toFilters(searchFilters)))
+            }
         }
+        if(status.search === 'initialize'){
+        updateStatus( {search : 'none'})
+        }    
     },[isAccordionOpen])
 
 
@@ -273,6 +336,7 @@ function filterBarContentLG(props) {
       };
     const open = Boolean(anchorEl);
     const id = open ? 'popover' : undefined;  
+   
 
     return(
         <Grid

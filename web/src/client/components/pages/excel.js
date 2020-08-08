@@ -210,7 +210,6 @@ const TypographyTitleMedium = styled(Typography)`
 `;
 
 function main(props){
-    console.log(props)
     return (
         <WorkPaper>
             <Hidden only='xl'>

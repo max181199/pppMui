@@ -7,7 +7,7 @@ import WorkSpace from '../workspace'
 import Table from '../table'
 
 function Statistics( props ) {
-    const { filterIcon , test } = props;
+    const { filterIcon , test  } = props;
         // console.group( 'BEGIN' )
         //     console.log('base: ' + test.base)
         //     console.log('nameArt: ' + test.nameArt)
@@ -34,7 +34,7 @@ function Statistics( props ) {
                 { 
                     filterIcon === "open" 
                     ?
-                    <FilterBar/> 
+                    <FilterBar history={props.history}/> 
                     : 
                     null 
                 }    
@@ -46,7 +46,10 @@ function Statistics( props ) {
     )
 }
 
-export default connect( store =>( {
+export default connect( (store) =>( 
+{
     filterIcon : store.optional.filterIcon,
     test : store.filters,
-}))(Statistics)
+}
+),{
+})(Statistics)

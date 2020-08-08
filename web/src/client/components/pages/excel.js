@@ -209,7 +209,8 @@ const TypographyTitleMedium = styled(Typography)`
     text-align : center;
 `;
 
-function main(){
+function main(props){
+    console.log(props)
     return (
         <WorkPaper>
             <Hidden only='xl'>

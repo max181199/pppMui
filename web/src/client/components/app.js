@@ -8,11 +8,18 @@ const App = ( props ) => {
   const { currentPage } = props
   document.body.style.minWidth = '1px'
   return (
-      currentPage === 'excel'
-      ?
-      <Excel/>
-      :
-      <Statistics/>
+      <Switch>
+        <Route
+          exact
+          path='/'
+          component={Statistics}
+        />
+        <Route
+          exact
+          path='/excel'
+          component={Excel}
+        />
+      </Switch>
   );
 };
 

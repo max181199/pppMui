@@ -1,10 +1,11 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Divider from '@material-ui/core/Divider';
 import { connect } from "react-redux"
+import { Link } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { changeCurrentPage , changeCurrentFilterIcon } from '../../actions';
+import { changeCurrentFilterIcon } from '../../actions';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Tabs from '@material-ui/core/Tabs';
@@ -65,6 +66,7 @@ const StyledTabOne= styled(Tab)`
     height  : 50px;
     font-size : 15px;
     min-width : 350px;
+    
 `;
 
 const StyledTabTwo= styled(Tab)`
@@ -72,6 +74,7 @@ const StyledTabTwo= styled(Tab)`
     height  : 50px;
     font-size : 15px;
     min-width : 100px;
+
 `;
   
 const StyleTabs = styled(Tabs)`
@@ -86,7 +89,8 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function MediumHeaderContent(props){
-    const { currentPage , currentFilterIcon, changeCurrentPage ,changeCurrentFilterIcon, date } = props
+    const {  currentFilterIcon,filters,changeCurrentFilterIcon, date,  } = props
+    const [ currentPage ,changeCurrentPage] = useState(1)
     const changeIcon = () => {
         currentFilterIcon === "close" 
         ?
@@ -94,6 +98,18 @@ function MediumHeaderContent(props){
         :
         changeCurrentFilterIcon('close')
     } 
+
+    const toURL = (params) =>{
+        let paramsForQuery =''
+        for (let prop in params){
+            paramsForQuery += `${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+            paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery;
+    }
+
     return(
         <StyledMainGrid container
           direction="row"
@@ -116,8 +132,18 @@ function MediumHeaderContent(props){
                     </StyledIconButton>
                 </Tooltip>
                 <StyleTabs value={currentPage} onChange={(e,val)=>{changeCurrentPage(val)}}>
-                    <StyledTabOne wrapped  label="Клики и действия по ППП за период" value={'statistics'}/>
-                    <StyledTabTwo wrapped  label=" Отчеты " value={'excel'} />
+                    <StyledTabOne 
+                        wrapped 
+                        label="Клики и действия по ППП за период" 
+                        value={1}
+                    />
+                    <StyledTabTwo 
+                        wrapped   
+                        label=" Отчеты "
+                        value={2} 
+                        component={Link}
+                        to={`/excel${toURL(filters)}`}
+                    />
                 </StyleTabs> 
             </StyledGrid>
             <StyledGrid>
@@ -127,9 +153,8 @@ function MediumHeaderContent(props){
     )    
 }
 export default connect((store)=>({
-    currentPage : store.optional.page,
-    currentFilterIcon : store.optional.filterIcon 
+    currentFilterIcon : store.optional.filterIcon, 
+    filters : store.filters
 }),{
-    changeCurrentPage,
     changeCurrentFilterIcon
 })(MediumHeaderContent)

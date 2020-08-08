@@ -1,11 +1,11 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { connect } from "react-redux"
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { changeCurrentPage , changeCurrentFilterIcon } from '../../actions';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledMainGrid = styled(Grid)`
     margin : 0;
@@ -52,7 +52,18 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function SmallHeaderContent(props){
-    const { currentPage , changeCurrentPage  } = props
+    const { filters  } = props
+    const [ currentPage ,changeCurrentPage] = useState(1)
+    const toURL = (params) =>{
+        let paramsForQuery =''
+        for (let prop in params){
+            paramsForQuery += `${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+            paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery;
+    }
     return(
         <StyledMainGrid container
           direction="row"
@@ -64,17 +75,19 @@ function SmallHeaderContent(props){
             </StyledGrid>
             <StyledGrid item>
                 <StyleTabs value={currentPage} onChange={(e,val)=>{changeCurrentPage(val)}}>
-                    <StyledTabOne wrapped  label=" Статистика" value={'statistics'}/>
-                    <StyledTabTwo wrapped  label=" Отчеты " value={'excel'} />
+                    <StyledTabOne wrapped  label=" Статистика" value={1}/>
+                    <StyledTabTwo 
+                        wrapped   
+                        label=" Отчеты "
+                        value={2} 
+                        component={Link}
+                        to={`/excel${toURL(filters)}`}
+                    />
                 </StyleTabs> 
             </StyledGrid>
         </StyledMainGrid>
     )    
 }
 export default connect((store)=>({
-    currentPage : store.optional.page,
-    currentFilterIcon : store.optional.filterIcon 
-}),{
-    changeCurrentPage,
-    changeCurrentFilterIcon
-})(SmallHeaderContent)
+    filters : store.filters,
+}),null)(SmallHeaderContent)

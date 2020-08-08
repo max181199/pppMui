@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Divider from '@material-ui/core/Divider';
 import { connect } from "react-redux"
 import Tooltip from '@material-ui/core/Tooltip';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { changeCurrentPage , changeCurrentFilterIcon } from '../../actions';
+import {  changeCurrentFilterIcon } from '../../actions';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledMainGrid = styled(Grid)`
     margin : 0;
@@ -86,7 +87,7 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function LargeHeaderContent(props){
-    const { currentPage , currentFilterIcon, changeCurrentPage ,changeCurrentFilterIcon, date } = props
+    const { filters , currentFilterIcon ,changeCurrentFilterIcon, date } = props
     const changeIcon = () => {
         currentFilterIcon === "close" 
         ?
@@ -94,6 +95,17 @@ function LargeHeaderContent(props){
         :
         changeCurrentFilterIcon('close')
     } 
+    const [ currentPage ,changeCurrentPage] = useState(1)
+    const toURL = (params) =>{
+        let paramsForQuery =''
+        for (let prop in params){
+            paramsForQuery += `${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+            paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery;
+    }
     return(
         <StyledMainGrid container
           direction="row"
@@ -116,9 +128,19 @@ function LargeHeaderContent(props){
                     </StyledIconButton>
                 </Tooltip>
                 <StyleTabs value={currentPage} onChange={(e,val)=>{changeCurrentPage(val)}}>
-                    <StyledTabOne wrapped  label=" Клики и действия по ППП за период " value={'statistics'}/>
-                    <StyledTabTwo wrapped  label=" Отчеты " value={'excel'} />
-                </StyleTabs> 
+                    <StyledTabOne 
+                        wrapped 
+                        label="Клики и действия по ППП за период" 
+                        value={1}
+                    />
+                    <StyledTabTwo 
+                        wrapped   
+                        label=" Отчеты "
+                        value={2} 
+                        component={Link}
+                        to={`/excel${toURL(filters)}`}
+                    />
+                </StyleTabs>
             </StyledGrid>
             <StyledGrid>
              <TitleDateTypografy variant='h4'> {`Обновление: ` + date} </TitleDateTypografy>
@@ -127,9 +149,8 @@ function LargeHeaderContent(props){
     )    
 }
 export default connect((store)=>({
-    currentPage : store.optional.page,
-    currentFilterIcon : store.optional.filterIcon 
+    currentFilterIcon : store.optional.filterIcon ,
+    filters : store.filters
 }),{
-    changeCurrentPage,
     changeCurrentFilterIcon
 })(LargeHeaderContent)

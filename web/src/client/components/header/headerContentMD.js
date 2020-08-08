@@ -89,7 +89,7 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function MediumHeaderContent(props){
-    const {  currentFilterIcon,filters,changeCurrentFilterIcon, date,  } = props
+    const {  currentFilterIcon,changeCurrentFilterIcon, date,  } = props
     const [ currentPage ,changeCurrentPage] = useState(1)
     const changeIcon = () => {
         currentFilterIcon === "close" 
@@ -99,16 +99,6 @@ function MediumHeaderContent(props){
         changeCurrentFilterIcon('close')
     } 
 
-    const toURL = (params) =>{
-        let paramsForQuery =''
-        for (let prop in params){
-            paramsForQuery += `${prop}=${params[prop]}&`
-        }
-        if (paramsForQuery.length > 0) {
-            paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
-        }
-        return paramsForQuery;
-    }
 
     return(
         <StyledMainGrid container
@@ -142,7 +132,7 @@ function MediumHeaderContent(props){
                         label=" Отчеты "
                         value={2} 
                         component={Link}
-                        to={`/excel${toURL(filters)}`}
+                        to={`/excel`}
                     />
                 </StyleTabs> 
             </StyledGrid>
@@ -154,7 +144,6 @@ function MediumHeaderContent(props){
 }
 export default connect((store)=>({
     currentFilterIcon : store.optional.filterIcon, 
-    filters : store.filters
 }),{
     changeCurrentFilterIcon
 })(MediumHeaderContent)

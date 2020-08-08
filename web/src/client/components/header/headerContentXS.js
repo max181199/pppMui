@@ -52,18 +52,8 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function SmallHeaderContent(props){
-    const { filters  } = props
     const [ currentPage ,changeCurrentPage] = useState(1)
-    const toURL = (params) =>{
-        let paramsForQuery =''
-        for (let prop in params){
-            paramsForQuery += `${prop}=${params[prop]}&`
-        }
-        if (paramsForQuery.length > 0) {
-            paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
-        }
-        return paramsForQuery;
-    }
+
     return(
         <StyledMainGrid container
           direction="row"
@@ -81,13 +71,11 @@ function SmallHeaderContent(props){
                         label=" Отчеты "
                         value={2} 
                         component={Link}
-                        to={`/excel${toURL(filters)}`}
+                        to={`/excel`}
                     />
                 </StyleTabs> 
             </StyledGrid>
         </StyledMainGrid>
     )    
 }
-export default connect((store)=>({
-    filters : store.filters,
-}),null)(SmallHeaderContent)
+export default SmallHeaderContent

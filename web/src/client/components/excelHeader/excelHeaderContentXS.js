@@ -51,18 +51,7 @@ const StyleTabs = styled(Tabs)`
 `; 
 
 function SmallHeaderContent(props){
-    const { filters  } = props
     const [ currentPage ,changeCurrentPage] = useState(2)
-    const toURL = (params) =>{
-        let paramsForQuery =''
-        for (let prop in params){
-            paramsForQuery += `${prop}=${params[prop]}&`
-        }
-        if (paramsForQuery.length > 0) {
-            paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
-        }
-        return paramsForQuery;
-    }
     return(
         <StyledMainGrid container
           direction="row"
@@ -78,7 +67,7 @@ function SmallHeaderContent(props){
                         label=" Клики и действия по ППП за период " 
                         value={1}
                         component={Link}
-                        to={`/${toURL(filters)}`}
+                        to={`/}`}
                     />
                     <StyledTabTwo wrapped  label=" Отчеты " value={2} />
                 </StyleTabs> 
@@ -86,6 +75,4 @@ function SmallHeaderContent(props){
         </StyledMainGrid>
     )    
 }
-export default connect((store)=>({
-    filters : store.filters,
-}),null)(SmallHeaderContent)
+export default SmallHeaderContent

@@ -23,14 +23,14 @@ const StyledTableRow  = styled(TableRow)`
 
 const Typography9on6 = styled(Typography)`
     font-size : calc( 9px + 0.6vw);
-    line-height : 1.1;
+    line-height : 1.2;
     text-align : left;
     align-self : center;
 `;
 
 const Typography9on6Center = styled(Typography)`
     font-size : calc( 9px + 0.6vw);
-    line-height : 1.1;
+    line-height : 1.2;
     text-align : center;
     align-self : center;
 `;

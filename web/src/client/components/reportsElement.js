@@ -66,8 +66,6 @@ function ReportElement(props){
     const _apiBase = `${window.location.protocol}//${window.location.host}/api`;
     const { index ,info , filtersChanged , reportDeleted } = props
 
-    const filters = { periodsList: [] }
-
     const toURL = (params)=>{
         let paramsForQuery = '';
         for (let prop in params) {
@@ -81,7 +79,6 @@ function ReportElement(props){
 
 
     const transferOptions = ()=>{
-        info.periodsList=[];
         props.history.replace(toURL((info.params)))
         filtersChanged({
             base: `${info.params.base}${(info.params.num) ? `_${info.params.num}` : ''}${(info.params.label) ? `_${info.params.label}` : ''}`,

@@ -2,7 +2,6 @@ const defaultState = () => {
   const url_string = window.location.href;
   const url = new URL(url_string);
   return {
-    periodsList: [],
     base: url.searchParams.get('base') || '',
     nameArt: url.searchParams.get('nameArt') || '',
     note: url.searchParams.get('note') || '',
@@ -91,12 +90,6 @@ const updateFilters = (state, action) => {
             compProfile: action.filterBarPayload.compProfile,
             isComparison: ((action.filterBarPayload.compPeriod !== 'Не выбрано') || (action.filterBarPayload.compProfile !== 'Не выбрано' ) ) 
           };   
-
-    case 'FETCH_PERIODS_SUCCESS':
-      return {
-        ...state.filters,
-        periodsList: action.payload
-      };
 
     case 'FILTERS_RESET':
       return {...state.filters, ...defaultState()};

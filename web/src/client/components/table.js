@@ -174,13 +174,12 @@ function table(props){
     }
 
     const [ tableFilters , setTableFilters ] = useState(defaultTabFilter)
-    const [ sync , setSync ] = useState(false)
+    const [ sync , setSync ] = useState('default')
 
     const updateTableFilters = ( upd ) => {
         setTableFilters( {...defaultTabFilter, ...upd })
     }
-
-    const [ updateOneFlag , setUpdateOneFlag ] = useState(false);
+    const [ status , setStatus ] = useState('default')
 
     const toFilters = (obj)=>{
         return( {...filters , ...obj })
@@ -202,15 +201,13 @@ function table(props){
     
 
     useEffect( ()=>{
-        if(updateOneFlag){
-           setSync(true)
+        if(sync !== 'default' ){
            updateTableFilters( {sortClickActive : true, sortClick : 'desc' })
         }    
     },[cancel])
 
     useEffect( ()=>{
         if ( props.history.location.search === '' ){
-            console.log('not')
             updateTableFilters({
                 sortClick : filters.sortClick === 'DESC' ? 'desc' : 'asc',
                 sortClickActive : filters.sortClick === false ? false : true,
@@ -226,7 +223,6 @@ function table(props){
                 fix : filters.fix,
             })}
         else {
-            console.log('here')
             updateTableFilters({
                 sortClick : url.get('_sortClick') === 'DESC' ? 'desc' : 'asc',
                 sortClickActive : url.get('_sortClick')  === 'false' ? false : true,
@@ -241,25 +237,25 @@ function table(props){
                 ms : url.get('_ms') === 'false' ? false : true ,
                 fix : url.get('_fix')  === 'false' ? false : true ,
             })}
-        setUpdateOneFlag(true)
+        setStatus('init')
     },[])
 
     useEffect( ()=>{
-        let tmp = {
-            sortClick: tableFilters.sortClickActive === false ? false : tableFilters.sortClick.toUpperCase(),
-            sortClickI: tableFilters.sortClickIActive === false ? false : tableFilters.sortClickI.toUpperCase(),
-            sortRefuse: tableFilters.sortRefuseActive === false ? false : tableFilters.sortRefuse.toUpperCase(),
-            sortRefuseTime: tableFilters.sortRefuseTimeActive === false ? false : tableFilters.sortRefuseTime.toUpperCase(),
-            sortRdn: tableFilters.sortRdnActive === false ? false : tableFilters.sortRdn.toUpperCase(),
-            ms: tableFilters.ms,
-            fix: tableFilters.fix,
-            
-        }
-         if(!sync){
-             props.history.replace(toURL(toFilters(tmp)))
-             
-         } else { setSync(false) }
-            filtersChangedTableHead(tmp)
+        if(status !== 'default' &&  status !== 'init'){
+            let tmp = {
+                sortClick: tableFilters.sortClickActive === false ? false : tableFilters.sortClick.toUpperCase(),
+                sortClickI: tableFilters.sortClickIActive === false ? false : tableFilters.sortClickI.toUpperCase(),
+                sortRefuse: tableFilters.sortRefuseActive === false ? false : tableFilters.sortRefuse.toUpperCase(),
+                sortRefuseTime: tableFilters.sortRefuseTimeActive === false ? false : tableFilters.sortRefuseTime.toUpperCase(),
+                sortRdn: tableFilters.sortRdnActive === false ? false : tableFilters.sortRdn.toUpperCase(),
+                ms: tableFilters.ms,
+                fix: tableFilters.fix,
+                
+            }
+                props.history.replace(toURL(toFilters(tmp)))
+                filtersChangedTableHead(tmp)
+        }      
+        if (status === 'init') {setStatus('work')}  
 
     },[tableFilters])
 

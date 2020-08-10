@@ -286,7 +286,6 @@ function filterBarContentLG(props) {
                 compProfile : url.get('_compProfile'),
             })
         }
-
         updateStatus({
             filters : 'init',
             search : 'init',

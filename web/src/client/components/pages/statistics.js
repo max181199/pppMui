@@ -40,7 +40,7 @@ function Statistics( props ) {
                 }    
             </Hidden>    
             <WorkSpace >
-                <Table/>
+                <Table history={props.history} />
             </WorkSpace> 
         </div>          
     )

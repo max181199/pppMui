@@ -25,7 +25,6 @@ import blue from '@material-ui/core/colors/blue';
 import green from '@material-ui/core/colors/green';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import {useLocation} from "react-router-dom";
 
 
 const StyledTextField = styled(TextField)`
@@ -200,7 +199,6 @@ function filterBarContentLG(props) {
         from : '',
         compProfile : 'Не выбрано',
         compPeriod : 'Не выбрано',
-        status : 'default'
     })
     const [ searchFilters, setSearchFilters ] = useState({ 
         base : '',
@@ -224,6 +222,10 @@ function filterBarContentLG(props) {
         setStatus({...status,...obj})
     }
 
+    const toFilters = (obj)=>{
+        return( {...filters , ...obj })
+    }
+
     const toURL = (params)=>{
         let paramsForQuery = '';
         for (let prop in params) {
@@ -235,36 +237,12 @@ function filterBarContentLG(props) {
         return paramsForQuery
     }
 
-    const toFilters = (obj)=>{
-        return( {...filters , ...obj })
-    }
-
     
-
-    useEffect( ()=>{
-        if(status.filters !== 'initialize' && status.filters  !== 'default' ){
-            console.log('Kill me')
-            filtersChangedFilterBar({
-                from : localFilters.from,
-                to : localFilters.to,
-                period : localFilters.period,
-                profile : localFilters.profile,
-                compPeriod : localFilters.compPeriod,
-                compProfile : localFilters.compProfile,
-            })
-            props.history.replace(toURL(toFilters(localFilters)))
-        }
-        if(status.filters === 'initialize'){
-            updateStatus({filters : 'none'})
-        }
-    },[localFilters])
-
 
     const url = new URLSearchParams(props.history.location.search);
 
     useEffect(()=>{
         if ( props.history.location.search === ''){
-            console.log('once again')
             updateLocalFilters({
                 from : filters.from === '0' ? '' : filters.from,
                 to : filters.to === '100' ? '' : filters.to,
@@ -278,9 +256,9 @@ function filterBarContentLG(props) {
                 nameArt : filters.nameArt,
                 note : filters.note,
             })
+            props.history.replace(toURL(filters)) 
         }
         else {
-            console.log(props.history)
             updateLocalFilters({
                 from : url.get('_from') === '0' ? '' : url.get('_from'),
                 to :  url.get('_to') === '100' ? '' : url.get('_to'),
@@ -294,29 +272,57 @@ function filterBarContentLG(props) {
                 nameArt : url.get('_nameArt'),
                 note : url.get('_note'),
             })
+            filtersChangedSearch({
+                base : url.get('_base'),
+                nameArt : url.get('_nameArt'),
+                note : url.get('_note')
+            })
+            filtersChangedFilterBar({
+                from : url.get('_from'),
+                to : url.get('_to'),
+                period : url.get('_period'),
+                profile : url.get('_profile'),
+                compPeriod : url.get('_compPeriod'),
+                compProfile : url.get('_compProfile'),
+            })
         }
+
         updateStatus({
-            filters : 'initialize',
-            search : 'initialize'
+            filters : 'init',
+            search : 'init',
         })
         setPeriods(PeriodicTmp)
     },[])
 
     useEffect( ()=>{
-        if(status.search !== 'initialize' && status.search  !== 'default' ){
-            console.log('Here is Jony')
+        if(status.filters  !== 'default' && status.filters  !== 'init'  ){
+            filtersChangedFilterBar({
+                from : localFilters.from,
+                to : localFilters.to,
+                period : localFilters.period,
+                profile : localFilters.profile,
+                compPeriod : localFilters.compPeriod,
+                compProfile : localFilters.compProfile,
+            })
+            if ( status.filters != 'block'){
+            props.history.replace(toURL(toFilters(localFilters)))}
+        }
+        if ( status.filters  === 'init' || status.filters  === 'block'  ) { updateStatus({ filters : 'work'})}  
+    },[localFilters])
+
+    useEffect( ()=>{      
+        if( status.search  !== 'default' && status.search  !== 'init'){
             if (!isAccordionOpen){
                 filtersChangedSearch({
                     base : searchFilters.base,
                     nameArt : searchFilters.nameArt,
                     note : searchFilters.note
                 })
-                props.history.replace(toURL(toFilters(searchFilters)))
+                if ( status.search != 'block'){
+                props.history.replace(toURL(toFilters(searchFilters)))} 
             }
         }
-        if(status.search === 'initialize'){
-        updateStatus( {search : 'none'})
-        }    
+        if ( status.search  === 'init' || status.search  === 'block' ) { updateStatus({ search : 'work'})} 
     },[isAccordionOpen])
 
 
@@ -325,6 +331,29 @@ function filterBarContentLG(props) {
         return(
             <StyledMenuItem key={`${num}`} value={ `${el}` }>{el}</StyledMenuItem>
         )
+    }
+
+    function ResetFilters(){
+        updateStatus({
+            filters : 'block',
+            search : 'block'
+        })
+        updateLocalFilters({
+            from : '',
+            to : '',
+            compPeriod : 'Не выбрано',
+            compProfile : 'Не выбрано',
+            profile : 'Все профили',
+            period : 'Текущий'
+        })
+        updateSearchFilters({
+            base : '',
+            nameArt : '',
+            note : '',
+        })
+        clickCancel()
+        props.history.replace('/') 
+
     }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -506,18 +535,7 @@ function filterBarContentLG(props) {
                         </Popover>
                         <StyledButtonTwo
                             onClick={ ()=>{
-                                updateLocalFilters({
-                                    base : '',
-                                    nameArt : '',
-                                    note : '',
-                                    from : '',
-                                    to : '',
-                                    compPeriod : 'Не выбрано',
-                                    compProfile : 'Не выбрано',
-                                    profile : 'Все профили',
-                                    period : 'Текущий'
-                                })
-                                clickCancel()
+                                ResetFilters()
                             }}
                         >
                             Отменить

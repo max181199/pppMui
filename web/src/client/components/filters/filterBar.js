@@ -6,7 +6,6 @@ import FilterBarContentLG from './filterBarContentLG';
 import FilterBarContentMD from './filterBarContentMD';
 import FilterBarContentSM from './filterBarContentSM'
 
-
 const StyledLargeAppBar = styled(AppBar)`
     border-top-radius : 0;
     margin-top : 60px;
@@ -45,7 +44,7 @@ function FilterBar(props) {
             <Hidden only={['md','sm','xs']} >
                 <StyledLargeAppBar elevation={1}>
                     <StyledlargePapper elevation={1} >
-                        <FilterBarContentLG/>
+                        <FilterBarContentLG history={props.history}/>
                     </StyledlargePapper>
                 </StyledLargeAppBar>
             </Hidden>
@@ -59,7 +58,7 @@ function FilterBar(props) {
             <Hidden only={['lg','md','xs']} >
             <StyledMediumAppBar elevation={1}>
                 <StyledMediumPapper elevation={1} >
-                    <FilterBarContentSM/>
+                    <FilterBarContentSM history={props.history}/>
                 </StyledMediumPapper>
             </StyledMediumAppBar>
             </Hidden>

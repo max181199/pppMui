@@ -174,12 +174,75 @@ function table(props){
     }
 
     const [ tableFilters , setTableFilters ] = useState(defaultTabFilter)
+    const [ sync , setSync ] = useState(false)
 
     const updateTableFilters = ( upd ) => {
         setTableFilters( {...defaultTabFilter, ...upd })
     }
 
     const [ updateOneFlag , setUpdateOneFlag ] = useState(false);
+
+    const toFilters = (obj)=>{
+        return( {...filters , ...obj })
+    }
+
+    const toURL = (params)=>{
+        let paramsForQuery = '';
+        for (let prop in params) {
+          paramsForQuery += `_${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+          paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery
+    }
+
+    const url = new URLSearchParams(props.history.location.search);
+
+    
+
+    useEffect( ()=>{
+        if(updateOneFlag){
+           setSync(true)
+           updateTableFilters( {sortClickActive : true, sortClick : 'desc' })
+        }    
+    },[cancel])
+
+    useEffect( ()=>{
+        if ( props.history.location.search === '' ){
+            console.log('not')
+            updateTableFilters({
+                sortClick : filters.sortClick === 'DESC' ? 'desc' : 'asc',
+                sortClickActive : filters.sortClick === false ? false : true,
+                sortClickI : filters.sortClickI === 'DESC' ? 'desc' : 'asc',
+                sortClickIActive : filters.sortClickI === false ? false : true,
+                sortRefuse : filters.sortRefuse === 'DESC' ? 'desc' : 'asc',
+                sortRefuseActive : filters.sortRefuse === false ? false : true,
+                sortRefuseTime : filters.sortRefuseTime === 'DESC' ? 'desc' : 'asc',
+                sortRefuseTimeActive : filters.sortRefuseTime === false ? false : true,
+                sortRdn : filters.sortRdn === 'DESC' ? 'desc' : 'asc',
+                sortRdnActive : filters.sortRdn  === false ? false : true,
+                ms : filters.ms,
+                fix : filters.fix,
+            })}
+        else {
+            console.log('here')
+            updateTableFilters({
+                sortClick : url.get('_sortClick') === 'DESC' ? 'desc' : 'asc',
+                sortClickActive : url.get('_sortClick')  === 'false' ? false : true,
+                sortClickI : url.get('_sortClickI')  === 'DESC' ? 'desc' : 'asc',
+                sortClickIActive : url.get('_sortClickI') === 'false' ? false : true,
+                sortRefuse : url.get('_sortRefuse') === 'DESC' ? 'desc' : 'asc',
+                sortRefuseActive : url.get('_sortRefuse') === 'false' ? false : true,
+                sortRefuseTime : url.get('_sortRefuseTime') === 'DESC' ? 'desc' : 'asc',
+                sortRefuseTimeActive : url.get('_sortRefuseTime') === 'false' ? false : true,
+                sortRdn : url.get('_sortRdn') === 'DESC' ? 'desc' : 'asc',
+                sortRdnActive :  url.get('_sortRdn')  === 'false' ? false : true,
+                ms : url.get('_ms') === 'false' ? false : true ,
+                fix : url.get('_fix')  === 'false' ? false : true ,
+            })}
+        setUpdateOneFlag(true)
+    },[])
 
     useEffect( ()=>{
         let tmp = {
@@ -192,32 +255,13 @@ function table(props){
             fix: tableFilters.fix,
             
         }
-        if (updateOneFlag) {filtersChangedTableHead(tmp)}
+         if(!sync){
+             props.history.replace(toURL(toFilters(tmp)))
+             
+         } else { setSync(false) }
+            filtersChangedTableHead(tmp)
+
     },[tableFilters])
-
-    useEffect( ()=>{
-        if(updateOneFlag){
-           updateTableFilters( {sortClickActive : true, sortClick : 'desc' })
-        }    
-    },[cancel])
-
-    useEffect( ()=>{
-        updateTableFilters({
-            sortClick : filters.sortClick === 'DESC' ? 'desc' : 'asc',
-            sortClickActive : filters.sortClick === false ? false : true,
-            sortClickI : filters.sortClickI === 'DESC' ? 'desc' : 'asc',
-            sortClickIActive : filters.sortClickI === false ? false : true,
-            sortRefuse : filters.sortRefuse === 'DESC' ? 'desc' : 'asc',
-            sortRefuseActive : filters.sortRefuse === false ? false : true,
-            sortRefuseTime : filters.sortRefuseTime === 'DESC' ? 'desc' : 'asc',
-            sortRefuseTimeActive : filters.sortRefuseTime === false ? false : true,
-            sortRdn : filters.sortRdn === 'DESC' ? 'desc' : 'asc',
-            sortRdnActive : filters.sortRdn  === false ? false : true,
-            ms : filters.ms,
-            fix : filters.fix,
-        })
-        setUpdateOneFlag(true)
-    },[])
 
     return(
         <Box>

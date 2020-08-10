@@ -176,7 +176,7 @@ const StyledCancelButton = styled(Button)`
 function Main( props ) {
 
     const { filters , filtersChanged , filtersReset } = props
-    const [ semaphore, setSemaphore ] = React.useState(false)
+    const [ status , setStatus ] = React.useState('default')
     const [ reportFilters, setReportFilters ] = React.useState({
         period: 'Текущий',
         profile: 'Все профили',
@@ -197,9 +197,28 @@ function Main( props ) {
     const updateReportFilters = (obj) =>{
         setReportFilters({...reportFilters , ...obj})
     }
-    const [ block , setBlock ] = React.useState(false)
+
+
+    const toFilters = (obj)=>{
+        return( {...filters , ...obj })
+    }
+
+    const toURL = (params)=>{
+        let paramsForQuery = '';
+        for (let prop in params) {
+          paramsForQuery += `_${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+          paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery
+    }
+
+    const url = new URLSearchParams(props.history.location.search);
+
     useEffect( ()=> {
-        if ( block ){
+        if ( status !== 'default' ){
+            setStatus('work')
             filtersChanged({
                 base:  reportFilters.base ,
                 nameArt: reportFilters.nameArt ,
@@ -220,44 +239,81 @@ function Main( props ) {
                 isDetail: reportFilters.isDetail,
                 count: reportFilters.count,
             })
+            props.history.replace(toURL(toFilters(reportFilters)))
         }
-        setSemaphore(true)
     },[reportFilters]);
 
     useEffect( ()=>{
-        let newSort ;
-        if (filters.sortClick === 'ASC')  {newSort='По возрастанию кликов'}
-        if (filters.sortClick === 'DESC')  {newSort='По убыванию кликов'}
-        if (filters.sortClickI === 'ASC')  {newSort='По возрастанию кликов по I'}
-        if (filters.sortClickI === 'DESC')  {newSort='По убыванию кликов по I'} 
-        if (filters.sortRefuse=== 'ASC')  {newSort='По возрастанию отказов'}
-        if (filters.sortRefuse === 'DESC')  {newSort='По убыванию отказов'}  
-        if (filters.sortRefuseTime=== 'ASC')  {newSort='По возрастанию времени отказа'}
-        if (filters.sortRefuseTime=== 'DESC')  {newSort='По убыванию времени отказа'}
-        if (filters.sortRdn=== 'ASC')  {newSort='По возрастанию позиции в РДН'}
-        if (filters.sortRdn=== 'DESC')  {newSort='По убыванию позиции в РДН'}
-        if(!semaphore){ 
-            setReportFilters({
-                base: filters.base,
-                nameArt: filters.nameArt,
-                note: filters.note,
-                from: filters.from === '0' ? '' : filters.from,
-                to: filters.to === '100' ? '' : filters.to ,
-                period: filters.period,
-                profile: filters.profile,
-                isComparison: filters.isComparison,
-                compPeriod: filters.compPeriod,
-                compProfile: filters.compProfile,
-                sort : newSort,
-                ms: filters.ms,
-                fix: filters.fix,
-                isDetail: filters.isDetail,
-                count: filters.count
-            })
+        if ( status !== 'work') {
+            if ( props.history.location.search === '' ){
+                let newSort ;
+                if (filters.sortClick === 'ASC')  {newSort='По возрастанию кликов'}
+                if (filters.sortClick === 'DESC')  {newSort='По убыванию кликов'}
+                if (filters.sortClickI === 'ASC')  {newSort='По возрастанию кликов по I'}
+                if (filters.sortClickI === 'DESC')  {newSort='По убыванию кликов по I'} 
+                if (filters.sortRefuse=== 'ASC')  {newSort='По возрастанию отказов'}
+                if (filters.sortRefuse === 'DESC')  {newSort='По убыванию отказов'}  
+                if (filters.sortRefuseTime=== 'ASC')  {newSort='По возрастанию времени отказа'}
+                if (filters.sortRefuseTime=== 'DESC')  {newSort='По убыванию времени отказа'}
+                if (filters.sortRdn=== 'ASC')  {newSort='По возрастанию позиции в РДН'}
+                if (filters.sortRdn=== 'DESC')  {newSort='По убыванию позиции в РДН'}
+                setReportFilters({
+                    base: filters.base,
+                    nameArt: filters.nameArt,
+                    note: filters.note,
+                    from: filters.from === '0' ? '' : filters.from,
+                    to: filters.to === '100' ? '' : filters.to ,
+                    period: filters.period,
+                    profile: filters.profile,
+                    isComparison: filters.isComparison,
+                    compPeriod: filters.compPeriod,
+                    compProfile: filters.compProfile,
+                    sort : newSort,
+                    ms: filters.ms,
+                    fix: filters.fix,
+                    isDetail: filters.isDetail,
+                    count: filters.count
+                })
+            } else {
+                let newSort ;
+                if (url.get('_sortClick') === 'ASC')  {newSort='По возрастанию кликов'}
+                if (url.get('_sortClick') === 'DESC')  {newSort='По убыванию кликов'}
+                if (url.get('_sortClickI') === 'ASC')  {newSort='По возрастанию кликов по I'}
+                if (url.get('_sortClickI') === 'DESC')  {newSort='По убыванию кликов по I'} 
+                if (url.get('_sortRefuse')=== 'ASC')  {newSort='По возрастанию отказов'}
+                if (url.get('_sortRefuse')=== 'DESC')  {newSort='По убыванию отказов'}  
+                if (url.get('_sortRefuseTime') === 'ASC')  {newSort='По возрастанию времени отказа'}
+                if (url.get('_sortRefuseTime') === 'DESC')  {newSort='По убыванию времени отказа'}
+                if (url.get('_sortRdn') === 'ASC')  {newSort='По возрастанию позиции в РДН'}
+                if (url.get('_sortRdn') === 'DESC')  {newSort='По убыванию позиции в РДН'}
+                setReportFilters({
+                    base: url.get('_base'),
+                    nameArt: url.get('_nameArt'),
+                    note: url.get('_note'),
+                    from: url.get('_from') === '0' ? '' : url.get('_from'),
+                    to: url.get('_to') === '100' ? '' : url.get('_to'),
+                    period: url.get('_period'),
+                    profile: url.get('_profile'),
+                    isComparison: url.get('_isComparison') === 'false' ? false : true,
+                    compPeriod: url.get('_compPeriod'),
+                    compProfile: url.get('_compProfile'),
+                    sort : newSort,
+                    ms: url.get('_ms') === 'false' ? false : true,
+                    fix: url.get('_fix') === 'false' ? false : true,
+                    isDetail: url.get('_isDetail') === 'false' ? false : true,
+                    count: url.get('_count')
+                })
+            }    
+
+            setStatus('init')
         }
-        setSemaphore(false)
-        setBlock(true)
+        if ( status === 'work') { setStatus('init')}
     },[filters])
+
+    function ResetFilters(){
+        props.history.replace('/excel')
+        filtersReset()
+    }
 
     function buildReport() {
         return null;
@@ -539,7 +595,7 @@ function Main( props ) {
                         Построить отчет
                     </StyledButton>
                     <StyledCancelButton
-                        onClick={()=>{filtersReset()}}
+                        onClick={()=>{ResetFilters()}}
                     >
                         Отменить
                     </StyledCancelButton>

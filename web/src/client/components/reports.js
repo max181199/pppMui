@@ -38,7 +38,7 @@ const Reports = (props) => {
         }
     </Box>        
     :
-    reports.map((report, i) => <ReportElement key={i} index={i} info={report} />
+    reports.map((report, i) => <ReportElement history={props.history} key={i} index={i} info={report} />
   ))       
 }
 

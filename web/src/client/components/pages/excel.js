@@ -252,7 +252,7 @@ function main(props){
                     </TypographyTitleLarge>
                 </XLargeRightToolbarPapper>
                 <XLargeRightWorkspace>
-                    <Reports/>
+                    <Reports history={props.history} />
                 </XLargeRightWorkspace>
             </Hidden>
             <Hidden only={['xl','md','sm','xs']}>
@@ -262,7 +262,7 @@ function main(props){
                     </TypographyTitleLarge>
                 </LargeRightToolbarPapper>
                 <LargeRightWorkspace>
-                    <Reports/>
+                    <Reports history={props.history} />
                 </LargeRightWorkspace>
             </Hidden>
             <Hidden only={['xl','lg']}>
@@ -272,7 +272,7 @@ function main(props){
                     </TypographyTitleMedium>
                 </MediumRightToolbarPapper>
                 <MediumRightWorkspace>
-                    <Reports/>
+                    <Reports history={props.history}/>
                 </MediumRightWorkspace>
             </Hidden>
         </WorkPaper>

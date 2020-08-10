@@ -66,7 +66,23 @@ function ReportElement(props){
     const _apiBase = `${window.location.protocol}//${window.location.host}/api`;
     const { index ,info , filtersChanged , reportDeleted } = props
 
+    const filters = { periodsList: [] }
+
+    const toURL = (params)=>{
+        let paramsForQuery = '';
+        for (let prop in params) {
+          paramsForQuery += `_${prop}=${params[prop]}&`
+        }
+        if (paramsForQuery.length > 0) {
+          paramsForQuery = `?${paramsForQuery.slice(0, -1)}`;
+        }
+        return paramsForQuery
+    }
+
+
     const transferOptions = ()=>{
+        info.periodsList=[];
+        props.history.replace(toURL((info.params)))
         filtersChanged({
             base: `${info.params.base}${(info.params.num) ? `_${info.params.num}` : ''}${(info.params.label) ? `_${info.params.label}` : ''}`,
             nameArt: info.params.nameArt,
@@ -88,6 +104,7 @@ function ReportElement(props){
             fix: (info.params.fix !== 'false' ? true : false),
             isDetail: (info.params.isDetail !== 'false' ? true : false)
           })
+          
     }
 
     const SaveApi = ()=>{

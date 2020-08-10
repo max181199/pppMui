@@ -238,6 +238,7 @@ function table(props){
                 fix : url.get('_fix')  === 'false' ? false : true ,
             })}
         setStatus('init')
+        setSync('init')
     },[])
 
     useEffect( ()=>{

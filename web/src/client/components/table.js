@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
-import {Box,Typography} from '@material-ui/core';
+import {Box,Typography, CircularProgress} from '@material-ui/core';
 import { connect } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,7 +20,11 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import {filtersChangedTableHead} from '../actions'
 import TableContent from './tableContent'
 import { grey } from '@material-ui/core/colors';
-import snippets from '../tmpDate/snippets'
+import { snippetsLoaded, newSnippetsLoaded,snippetsLoading} from '../actions'
+import { getQuery } from '../services/query-service'
+
+import snip from '../tmpDate/snippets' /// DELETE ME !!!
+
 
 const StyledTableContainer = styled(TableContainer)`
     width : 100vw;
@@ -95,7 +99,7 @@ const StyledToggleButton = styled(ToggleButton)`
     min-width : 95px;
     width : 5vw;
     min-height : 24px;
-    heifht : 1.5vh;
+    height : 1.5vh;
     margin : 0;
 
 `;
@@ -154,9 +158,28 @@ const TypographySUPR = styled(Typography)`
         };
   `;
 
+  const SnippetTP = styled(Typography)`
+        color : #9e9e9e;
+        font-size : calc( 16px + 0.8vw);
+        align-self : center;
+        text-align : center;
+        
+  `;
+
+  const StTableCell = styled(TableCell)`
+    text-align : center;
+  `;
+
+  const StCircularProgress = styled(CircularProgress)`
+        height : calc( 50px + 1vw) !important;
+        width : calc( 50px + 1vw) !important;
+  `;
+
 function table(props){
 
-    const { cancel,isComparison,filters,filtersChangedTableHead } = props
+    const { cancel,isComparison,filters,filtersChangedTableHead,
+        snippets,loadingSnippets,snippetsLoaded,newSnippetsLoaded,
+        snippetsLoading, } = props
 
     const defaultTabFilter = {
         sortClick : 'asc',
@@ -197,8 +220,6 @@ function table(props){
     }
 
     const url = new URLSearchParams(props.history.location.search);
-
-    
 
     useEffect( ()=>{
         if(sync !== 'default' ){
@@ -260,6 +281,8 @@ function table(props){
 
     },[tableFilters])
 
+    /** SNIPPETS BEGIN */
+    /** SNIPPETS END   */
     return(
         <Box>
             <StyledTableContainer component={Paper}>
@@ -461,6 +484,26 @@ function table(props){
                     </TableHead>
                     <TableBody>
                         {snippets.map( (snippet,num)=><TableContent key={num} num={num} snippet={snippet} isComparison={isComparison}/>)}
+                        {
+                            loadingSnippets 
+                            ?
+                            <TableRow>
+                                <StTableCell colSpan={14}>
+                                    <StCircularProgress/>
+                                    <SnippetTP> Пожалуйста, подождите, <br/> данные загружаются </SnippetTP>
+                                </StTableCell>
+                            </TableRow>
+                            :
+                                snippets.length == 0 
+                                ?   
+                                <TableRow>
+                                    <StTableCell colSpan={14}>
+                                        <SnippetTP> Данные не найдены </SnippetTP>
+                                    </StTableCell>
+                                </TableRow>
+                                :
+                                null
+                        }
                     </TableBody>
                 </Table>
             </StyledTableContainer>
@@ -471,7 +514,12 @@ function table(props){
 export default connect( (store)=>({
     cancel : store.optional.cancel,
     isComparison : store.filters.isComparison,
-    filters : store.filters
-    }),{ 
-        filtersChangedTableHead 
-    })(table)
+    filters : store.filters,
+    snippets : store.snippets.snippets,
+    loadingSnippets : store.snippets.loadingSnippets,
+}),{ 
+    filtersChangedTableHead,
+    snippetsLoaded,
+    newSnippetsLoaded,
+    snippetsLoading,
+})(table)

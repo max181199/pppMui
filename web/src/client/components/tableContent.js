@@ -135,7 +135,7 @@ const OFFLinkOffIcon = styled(LinkOffIcon)`
 const StyledContainer = styled(Container)`
     text-align : left;
     padding-left : 10px;
-    paddingRight : 10px;
+    padding-right : 10px;
 `;
 
 const ClearTableSell = styled(TableCell)`

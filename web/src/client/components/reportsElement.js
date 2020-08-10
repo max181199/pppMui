@@ -34,14 +34,14 @@ const StyledIconButton = styled(IconButton)`
 const StyledTypografy = styled(Typography)`
     font-size : max( 16px , 2px + 1vw);
     align-self: center;
-    lineHeight : 1.5;
+    line-height : 1.5;
 `;
 
 const StyledTypografyWithMargin = styled(Typography)`
     font-size : max( 16px , 2px + 1vw);
     margin-left : max( 5px , 0.5vw );
     align-self: center;
-    lineHeight : 1.5;
+    line-height : 1.5;
 `;
 
 

@@ -6,6 +6,7 @@ import FilterBar from '../filters/filterBar'
 import WorkSpace from '../workspace'
 import Table from '../table'
 
+
 function Statistics( props ) {
     const { filterIcon , test  } = props;
         // console.group( 'BEGIN' )

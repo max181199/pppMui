@@ -424,7 +424,9 @@ function filterBarContentLG(props) {
                             step : '1',
                         }}
                         value={localFilters.to}
-                        onChange={(e)=>{updateLocalFilters({to : e.target.value})}}
+                        onChange={(e)=>{
+                            updateLocalFilters({to : e.target.value})
+                        }}
                     />    
                 </FlexBox> 
             </Grid>   

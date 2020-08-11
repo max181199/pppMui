@@ -20,10 +20,13 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import {filtersChangedTableHead} from '../actions'
 import TableContent from './tableContent'
 import { grey } from '@material-ui/core/colors';
+
+
 import { snippetsLoaded, newSnippetsLoaded,snippetsLoading} from '../actions'
 import { getQuery } from '../services/query-service'
-
+import { toSnippetsRequestForm } from '../services/transform'
 import snip from '../tmpDate/snippets' /// DELETE ME !!!
+import { time } from 'highcharts';
 
 
 const StyledTableContainer = styled(TableContainer)`
@@ -203,6 +206,7 @@ function table(props){
         setTableFilters( {...defaultTabFilter, ...upd })
     }
     const [ status , setStatus ] = useState('default')
+    const [ snipSt , setSnipSt ] = useState('default')
 
     const toFilters = (obj)=>{
         return( {...filters , ...obj })
@@ -242,8 +246,14 @@ function table(props){
                 sortRdnActive : filters.sortRdn  === false ? false : true,
                 ms : filters.ms,
                 fix : filters.fix,
-            })}
-        else {
+            })
+            snippetsLoaded([])
+            snippetsLoading()
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
+                (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
+            setSnipSt('init')
+            console.log('Base Loading')    
+        } else {
             updateTableFilters({
                 sortClick : url.get('_sortClick') === 'DESC' ? 'desc' : 'asc',
                 sortClickActive : url.get('_sortClick')  === 'false' ? false : true,
@@ -257,11 +267,19 @@ function table(props){
                 sortRdnActive :  url.get('_sortRdn')  === 'false' ? false : true,
                 ms : url.get('_ms') === 'false' ? false : true ,
                 fix : url.get('_fix')  === 'false' ? false : true ,
-            })}
+            })
+            snippetsLoaded([])
+            snippetsLoading()
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
+                (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
+            console.log('Ext Loading')
+            setSnipSt('init')
+        }
         setStatus('init')
         setSync('init')
     },[])
 
+    
     useEffect( ()=>{
         if(status !== 'default' &&  status !== 'init'){
             let tmp = {
@@ -282,6 +300,25 @@ function table(props){
     },[tableFilters])
 
     /** SNIPPETS BEGIN */
+    const [time , setTime ] = useState()
+
+    useEffect( ()=>{
+        if( snipSt !== 'init' && snipSt !== 'default'){
+            snippetsLoaded([])
+            snippetsLoading()
+            clearTimeout(time)
+            let id = setTimeout(()=>{
+                console.log('RESET DATE')
+                getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
+                    (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
+            },3000)
+            setTime(id)
+        } 
+        if ( snipSt == 'init') {setSnipSt('work')}
+    },[filters])
+
+
+
     /** SNIPPETS END   */
     return(
         <Box>

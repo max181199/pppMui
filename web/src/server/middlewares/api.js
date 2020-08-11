@@ -1,3 +1,5 @@
+
+
 const fs = require('fs')
 const {resolve} = require('path');
 const {pgp, client} = require('./pgp');
@@ -230,6 +232,19 @@ const dataTransform = (data, isComparison, period, compPeriod) => {
 }
 
 module.exports = function setup(app) {
+
+  app.get('/api/testSnippets' , async (req , res) =>{
+    try {
+      const fs = require('fs');
+      const path = resolve(__dirname, '..', '..' , 'client' , 'tmpDate' , 'snippets.js');
+      const data = fs.readFileSync(path, 'utf8');
+      res.send(JSON.stringify(data))
+    } catch(err) {
+      console.log(err);
+      res.send("Error");
+    }
+  })
+
   app.get('/api/snippets', async (req, res) => {
     try {
       const limit = true,
@@ -266,7 +281,7 @@ module.exports = function setup(app) {
                          data[i].label_text = result[0].text;
                        }
                        else {
-                         data[i].label_text = '------';
+                         data[i].label_text = '-----';
                        }
                      })
           });

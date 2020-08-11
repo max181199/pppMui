@@ -231,6 +231,7 @@ function table(props){
 
     useEffect( ()=>{
         if(sync !== 'default' ){
+            setSync('cancel')
            updateTableFilters( {sortClickActive : true, sortClick : 'desc' })
         }    
     },[cancel])
@@ -294,8 +295,10 @@ function table(props){
                 fix: tableFilters.fix,
                 
             }
-                props.history.replace(toURL(toFilters(tmp)))
-                filtersChangedTableHead(tmp)
+                if ( sync !== 'cancel'){
+                    props.history.replace(toURL(toFilters(tmp)))
+                    filtersChangedTableHead(tmp)
+                } else { setSync('work')}
         }      
         if (status === 'init') {setStatus('work')}  
 

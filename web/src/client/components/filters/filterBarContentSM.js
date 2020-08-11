@@ -333,6 +333,11 @@ function filterBarContentLG(props) {
     }
 
     function ResetFilters(){
+        filtersChangedSearch({
+            base : '',
+            nameArt : '',
+            note : '',
+        })
         updateStatus({
             filters : 'block',
             search : 'block'

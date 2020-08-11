@@ -207,7 +207,8 @@ function filterBarContentLG(props) {
     })
     const [ status, setStatus ] = useState({
         filters : 'default',
-        search : 'default'
+        search : 'default',
+        init : 'default'
     })
 
     const updateLocalFilters = (obj) =>{
@@ -256,7 +257,9 @@ function filterBarContentLG(props) {
                 nameArt : filters.nameArt,
                 note : filters.note,
             })
-            props.history.replace(toURL(filters)) 
+            if( status.init !== 'block' ){
+                props.history.replace(toURL(filters)) 
+            }
         }
         else {
             updateLocalFilters({
@@ -289,6 +292,7 @@ function filterBarContentLG(props) {
         updateStatus({
             filters : 'init',
             search : 'init',
+            init : 'block',
         })
         setPeriods(PeriodicTmp)
     },[])
@@ -333,6 +337,16 @@ function filterBarContentLG(props) {
     }
 
     function ResetFilters(){
+        filtersChangedSearch({
+            base : '',
+            nameArt : '',
+            note : '',
+        })
+        updateSearchFilters({
+            base : '',
+            nameArt : '',
+            note : '',
+        })
         updateStatus({
             filters : 'block',
             search : 'block'
@@ -345,11 +359,7 @@ function filterBarContentLG(props) {
             profile : 'Все профили',
             period : 'Текущий'
         })
-        updateSearchFilters({
-            base : '',
-            nameArt : '',
-            note : '',
-        })
+        
         clickCancel()
         props.history.replace('/') 
 

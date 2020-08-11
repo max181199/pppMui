@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledMainGrid = styled(Grid)`
     margin : 0;
@@ -64,10 +65,10 @@ function SmallHeaderContent(props){
             <StyledGrid item>
                 <StyleTabs value={currentPage} onChange={(e,val)=>{changeCurrentPage(val)}}>
                     <StyledTabOne wrapped  
-                        label=" Клики и действия по ППП за период " 
+                        label=" Статистика " 
                         value={1}
                         component={Link}
-                        to={`/}`}
+                        to={`/`}
                     />
                     <StyledTabTwo wrapped  label=" Отчеты " value={2} />
                 </StyleTabs> 

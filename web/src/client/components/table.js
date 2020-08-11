@@ -20,13 +20,12 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import {filtersChangedTableHead} from '../actions'
 import TableContent from './tableContent'
 import { grey } from '@material-ui/core/colors';
+import { Waypoint } from 'react-waypoint';
 
 
 import { snippetsLoaded, newSnippetsLoaded,snippetsLoading} from '../actions'
 import { getQuery } from '../services/query-service'
 import { toSnippetsRequestForm } from '../services/transform'
-import snip from '../tmpDate/snippets' /// DELETE ME !!!
-import { time } from 'highcharts';
 
 
 const StyledTableContainer = styled(TableContainer)`
@@ -174,8 +173,13 @@ const TypographySUPR = styled(Typography)`
   `;
 
   const StCircularProgress = styled(CircularProgress)`
+        margin-top : calc( 10px + 2vh);
         height : calc( 50px + 1vw) !important;
         width : calc( 50px + 1vw) !important;
+  `;
+
+  const NinjaTableCell = styled(TableCell)`
+        padding : 0;
   `;
 
 function table(props){
@@ -249,10 +253,9 @@ function table(props){
             })
             snippetsLoaded([])
             snippetsLoading()
-            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '<--- Snippets Init'
                 (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
             setSnipSt('init')
-            console.log('Base Loading')    
         } else {
             updateTableFilters({
                 sortClick : url.get('_sortClick') === 'DESC' ? 'desc' : 'asc',
@@ -270,9 +273,8 @@ function table(props){
             })
             snippetsLoaded([])
             snippetsLoading()
-            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '<--- Snippets Init'
                 (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
-            console.log('Ext Loading')
             setSnipSt('init')
         }
         setStatus('init')
@@ -300,7 +302,15 @@ function table(props){
     },[tableFilters])
 
     /** SNIPPETS BEGIN */
+
+    /** 
+     * !IMPORTANT Первичная зарузка снипетов происходит выше 
+     * в useEffect(()=>{...},[]) 
+     * я помечу места комментарием '<--- Snippets Init'
+    */
+
     const [time , setTime ] = useState()
+    const [offset , setOffset] = useState()
 
     useEffect( ()=>{
         if( snipSt !== 'init' && snipSt !== 'default'){
@@ -308,7 +318,6 @@ function table(props){
             snippetsLoading()
             clearTimeout(time)
             let id = setTimeout(()=>{
-                console.log('RESET DATE')
                 getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
                     (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
             },3000)
@@ -317,13 +326,21 @@ function table(props){
         if ( snipSt == 'init') {setSnipSt('work')}
     },[filters])
 
-
-
+    const tableEnd = ()=>{
+        if( snippets.length !== 0) {
+            setOffset(offset + 20);
+            snippetsLoading()
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,offset,20)).then( 
+                (data)=> { if (data != 0) {newSnippetsLoaded(JSON.parse(data))}})
+        }
+    }
+    
     /** SNIPPETS END   */
+
     return(
         <Box>
             <StyledTableContainer component={Paper}>
-                <Table stickyHeader >
+                <Table stickyHeader id={'MyTable'}  >
                     <TableHead>
                         <TableRow>
                             <StyledHeadTableCellMark key={'shtc1'} variant='head' align="left">
@@ -521,6 +538,13 @@ function table(props){
                     </TableHead>
                     <TableBody>
                         {snippets.map( (snippet,num)=><TableContent key={num} num={num} snippet={snippet} isComparison={isComparison}/>)}
+                        <TableRow>
+                            <NinjaTableCell colSpan={14}>               
+                                <Waypoint
+                                    onEnter={tableEnd}
+                                />
+                            </NinjaTableCell>    
+                        </TableRow>
                         {
                             loadingSnippets 
                             ?

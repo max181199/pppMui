@@ -257,6 +257,20 @@ module.exports = function setup(app) {
     }
   })
 
+  app.get('/api/testDate' , async (req , res) =>{
+    try {
+      let today = new Date();
+      let year = today.getFullYear();
+      let mes = today.getMonth()+1;
+      let dia = today.getDate();
+      let fecha =dia+"-0"+mes+"-"+year;
+      res.send(JSON.stringify(fecha))
+    } catch(err) {
+      console.log(err);
+      res.send("Error");
+    }
+  })
+
   app.get('/api/snippets', async (req, res) => {
     try {
       const limit = true,

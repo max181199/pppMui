@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { AppBar, Hidden } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import ContentLG from './headerContentLG'
 import ContentMD from './headerContentMD'
 import ContentXS from './headerContentXS'
-import Date from '../../tmpDate/date';
+import { getQuery } from '../../services/query-service'
 
 const StyledToolbar = styled(Toolbar)`
   min-height : 50px;
@@ -21,16 +21,23 @@ const LargeStyledToolbar = styled(Toolbar)`
   padding-bottom : 0px;
 `;
 const Header = () => {
+
+  const [ date, setDate] = useState('')
+  useEffect(()=>{
+    getQuery( "/testDate" ).then(  
+                (data)=> { if (data != 0) {setDate(data)}})
+  },[])
+
   return (
     <AppBar>
       <Hidden only={['md','sm','xs']}>
         <LargeStyledToolbar>
-          <ContentLG date={Date[0]['update_date']} />
+          <ContentLG date={date} />
         </LargeStyledToolbar>
       </Hidden>
       <Hidden only={['lg','xs']}>
         <StyledToolbar>
-          <ContentMD date={Date[0]['update_date']} />
+          <ContentMD date={date} />
         </StyledToolbar>
       </Hidden>
       <Hidden only={['lg','md','sm']}>

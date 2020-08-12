@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import blue from '@material-ui/core/colors/blue';
 import Paper from '@material-ui/core/Paper';
 import { Typography , Hidden } from '@material-ui/core';
@@ -7,6 +7,9 @@ import ReportConstructionMD from '../reportsConstructors/reportsConstructorMD'
 import Reports from '../reports'
 import ExcelHeader from '../excelHeader/excelHeader'
 import styled from 'styled-components';
+import { newPeriodsList } from '../../actions'
+import { getQuery } from '../../services/query-service'
+import { connect } from 'react-redux';
 
 
 const WorkPaper = styled(Paper)`
@@ -210,6 +213,13 @@ const TypographyTitleMedium = styled(Typography)`
 `;
 
 function main(props){
+    const { newPeriodsList } = props
+    useEffect(()=>{
+        getQuery( "/testPeriods").then(  
+                (data)=> {  if (data != 0) {newPeriodsList(JSON.parse(data))}})
+    },[])
+
+
     return (
         <WorkPaper>
             <Hidden only='xl'>
@@ -279,4 +289,4 @@ function main(props){
     )
 }
 
-export default main
+export default connect( null,{newPeriodsList})(main)

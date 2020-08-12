@@ -9,7 +9,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
 import green from '@material-ui/core/colors/green';
-import PeriodicTmp from '../../tmpDate/periodic';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -167,7 +166,7 @@ const StyledCancelButton = styled(Button)`
 
 function Main( props ) {
 
-    const { filters , filtersChanged , filtersReset } = props
+    const { filters , periods, filtersChanged , filtersReset } = props
     const [ status , setStatus ] = React.useState('default')
     const [ reportFilters, setReportFilters ] = React.useState({
         period: 'Текущий',
@@ -456,7 +455,7 @@ function Main( props ) {
                                     value={reportFilters.period}
                                     onChange={(e)=>{updateReportFilters({period : e.target.value})}}
                                 >
-                                    {PeriodicTmp.map( (item,num) => getSelectElement(item,num))}
+                                    {periods.map( (item,num) => getSelectElement(item,num))}
                                 </Select>
                             </StyledFormControl>
                         </Grid>
@@ -471,7 +470,7 @@ function Main( props ) {
                                     }}
                                 >
                                     <MenuItem key={'${num}?m123'} value={ `Не выбрано` }>{`Не выбрано`}</MenuItem>
-                                    {PeriodicTmp.map( (item,num) => getMediumSelectElement(item,num))}
+                                    {periods.map( (item,num) => getMediumSelectElement(item,num))}
                                 </Select>
                             </StyledFormControl>
                         </Grid>
@@ -597,7 +596,8 @@ function Main( props ) {
 }
 
 export default connect( (store)=>({ 
-    filters : store.filters 
+    filters : store.filters ,
+    periods : store.periods.periods
 }),{
     filtersChanged,filtersReset
 })(Main)

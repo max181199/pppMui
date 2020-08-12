@@ -18,7 +18,6 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
-import PeriodicTmp from '../../tmpDate/periodic';
 import Popover from '@material-ui/core/Popover';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
@@ -189,8 +188,7 @@ const StyledIconButton = styled(IconButton)`
 
 function filterBarContentLG(props) {
 
-    const { filters , filtersChangedSearch , filtersChangedFilterBar , clickCancel } = props
-    const [ periods , setPeriods] = useState([]);
+    const { filters , periods , filtersChangedSearch , filtersChangedFilterBar , clickCancel } = props
     const [ isAccordionOpen , setIsAccordionOpen ] = useState(false)
     const [ localFilters , setLocalFilters ] = useState({
         period : '',
@@ -291,7 +289,6 @@ function filterBarContentLG(props) {
             filters : 'init',
             search : 'init',
         })
-        setPeriods(PeriodicTmp)
     },[])
 
     useEffect( ()=>{
@@ -551,7 +548,8 @@ function filterBarContentLG(props) {
 }
 
 export default connect( (store)=>({
-    filters : store.filters
+    filters : store.filters,
+    periods : store.periods
 }), {
     filtersChangedSearch,
     filtersChangedFilterBar,

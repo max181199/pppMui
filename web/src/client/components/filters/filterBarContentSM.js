@@ -188,8 +188,7 @@ const StyledIconButton = styled(IconButton)`
 
 function filterBarContentLG(props) {
 
-    const { filters , filtersChangedSearch , filtersChangedFilterBar , clickCancel } = props
-    const [ periods , setPeriods] = useState([]);
+    const { filters , filtersChangedSearch, periods , filtersChangedFilterBar , clickCancel } = props
     const [ isAccordionOpen , setIsAccordionOpen ] = useState(false)
     const [ localFilters , setLocalFilters ] = useState({
         period : '',
@@ -290,7 +289,6 @@ function filterBarContentLG(props) {
             filters : 'init',
             search : 'init',
         })
-        setPeriods(PeriodicTmp)
     },[])
 
     useEffect( ()=>{
@@ -550,7 +548,8 @@ function filterBarContentLG(props) {
 }
 
 export default connect( (store)=>({
-    filters : store.filters
+    filters : store.filters,
+    periods : store.periods,
 }), {
     filtersChangedSearch,
     filtersChangedFilterBar,

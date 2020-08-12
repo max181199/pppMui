@@ -245,6 +245,18 @@ module.exports = function setup(app) {
     }
   })
 
+  app.get('/api/testReports' , async (req , res) =>{
+    try {
+      const fs = require('fs');
+      const path = resolve(__dirname, '..', '..' , 'client' , 'tmpDate' , 'reports.js');
+      const data = fs.readFileSync(path, 'utf8');
+      res.send(JSON.stringify(data))
+    } catch(err) {
+      console.log(err);
+      res.send("Error");
+    }
+  })
+
   app.get('/api/testPeriods' , async (req , res) =>{
     try {
       const fs = require('fs');

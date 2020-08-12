@@ -15,8 +15,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { filtersChanged, filtersReset } from '../../actions'
-
+import { filtersChanged, filtersReset, reportsLoaded , reportsLoading } from '../../actions'
+import { getQuery } from '../../services/query-service'
+import { toReportsRequestForm } from '../../services/transform'
 
 const MediumSearchPaper = styled(Paper)`
     min-height : 60px;
@@ -166,7 +167,7 @@ const StyledCancelButton = styled(Button)`
 
 function Main( props ) {
 
-    const { filters , periods, filtersChanged , filtersReset } = props
+    const { filters , reportsLoaded , reportsLoading , periods, filtersChanged , filtersReset } = props
     const [ status , setStatus ] = React.useState('default')
     const [ reportFilters, setReportFilters ] = React.useState({
         period: 'Текущий',
@@ -306,9 +307,20 @@ function Main( props ) {
         filtersReset()
     }
 
+
     function buildReport() {
-        return null;
+        reportsLoaded([])
+        reportsLoading()
+        getQuery('/excel/' , toReportsRequestForm(filters))
+        .then( () =>{
+            getQuery('/testReports')
+            .then((data) => {
+                reportsLoaded(data);
+            });
+        })
     }
+
+
     function getSelectElement( el , num ) {
         return(
             <MenuItem key={`${num}`} value={ `${el}` }>{el}</MenuItem>
@@ -599,5 +611,5 @@ export default connect( (store)=>({
     filters : store.filters ,
     periods : store.periods.periods
 }),{
-    filtersChanged,filtersReset
+    filtersChanged,filtersReset,reportsLoaded,reportsLoading
 })(Main)

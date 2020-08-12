@@ -1,4 +1,5 @@
 import { getQueryWithoutBase } from './query-service'
+import { offset } from 'highcharts';
 
 const transcriptPeriod = (period) => {
     if (period == 'Текущий') {
@@ -97,6 +98,23 @@ const toSnippetsRequestForm = ( filters  , offset = 0 , count = 20 ) =>{
     })
 }
 
+const toReportsRequestForm = ( filters , offset = 0) =>{
+    return({
+      ...filters,
+      offset : offset,
+      count  : (filters.count) ? filters.count : 'all',
+      origNameArt : filters.nameArt,
+      origNote    : filters.note,
+      period : transcriptPeriod(filters.period),
+      profile : transcriptProfile(filters.profile),
+      compPeriod : transcriptPeriod(filters.compPeriod),
+      compProfile : transcriptProfile(filters.compProfile),
+      note : transformNote(filters.note),
+      nameArt : transformNameArt(filters.nameArt),
+      ...transformName(filters.base),
+    })
+}
+
 export {
     transcriptPeriod,
     transcriptProfile,
@@ -104,4 +122,5 @@ export {
     transformNameArt,
     transformNote,
     toSnippetsRequestForm,
+    toReportsRequestForm
 }

@@ -61,6 +61,12 @@ const reportsLoaded = (reports) => {
   };
 };
 
+const reportsLoading = () => {
+  return {
+    type: 'FETCH_REPORTS_REQUEST',
+  };
+};
+
 const newReportAdded = (reports) => {
   return {
     type: 'REPORT_ADD',
@@ -109,6 +115,7 @@ export {
   snippetsLoading,
   filtersReset,
   reportsLoaded,
+  reportsLoading,
   newReportAdded,
   reportDeleted,
   newPeriodsList,

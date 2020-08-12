@@ -1,45 +1,80 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import ReportElement from './reportsElement';
 import { connect } from 'react-redux';
-import { reportsLoaded } from '../actions';
-import Rep from '../tmpDate/reports'
-import { Typography, Grid, Box  } from '@material-ui/core';
+import { reportsLoaded,reportsLoading } from '../actions';
+import { Typography, Box  } from '@material-ui/core';
 import styled from 'styled-components';
 import grey from '@material-ui/core/colors/grey';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { getQuery } from '../services/query-service'
 
 const StyledTypografy = styled(Typography)`
     font-size : max( 24px , calc( 12px + 1vw ));
     color : ${grey[500]};
-    margin-top : max( 20px , 4vh );
+    margin-top : max( 25px , 5vh );
+    text-align : center;
 `;
+const StCircularProgress = styled(CircularProgress)`
+    margin-top : calc( 15px + 5vh);
+    height : calc( 50px + 1vw) !important;
+    width : calc( 50px + 1vw) !important;
+  `;
 
+const StDiv = styled.div`
+    text-align : center;
+`;
 
 const Reports = (props) => {
 
-   const { reports, loadingReports, reportsLoaded } = props
+   const { reports, loadingReports, reportsLoaded, reportsLoading } = props
+   const [ timer , setTimer ] = useState()
 
-  useEffect(  
-    () => {
-        reportsLoaded(Rep)
+    useEffect(() => {
+        reportsLoaded([])
+        reportsLoading()
+        getQuery( "/testReports" ).then( 
+                (data)=> { if (data != 0) {reportsLoaded(JSON.parse(data))}})
     },[])
 
+    useEffect(()=>{
+        if ( loadingReports){
+            clearTimeout(timer)
+        } else {
+            let id = setTimeout(updateReports,10000)
+            setTimer(id)
+        }
+    },[loadingReports])
+
+    const updateReports = ()=>{
+        reportsLoading()
+        getQuery( "/testReports" ).then( 
+                (data)=> { if (data != 0) {reportsLoaded(JSON.parse(data))}})
+    }
+
   return (
-    ((reports.length <= 0) && !loadingReports)
-    ? 
-    <Box>
-        <StyledTypografy> Отчеты отсутствуют </StyledTypografy>
+    <div>
         {
-            loadingReports 
+            reports.map((report, i) => <ReportElement history={props.history} key={i} index={i} info={report} />)
+        } 
+        {
+            ((reports.length <= 0) && !loadingReports)
             ?
-            <CircularProgress/>
-            :
+            <StyledTypografy> Отчеты отсутствуют </StyledTypografy>   
+            : 
             null
         }
-    </Box>        
-    :
-    reports.map((report, i) => <ReportElement history={props.history} key={i} index={i} info={report} />
-  ))       
+        {
+            (loadingReports)
+            ?
+            <StDiv>
+                <StCircularProgress/>
+                <StyledTypografy> Пожалуйста, подождите, <br/> данные загружаются  </StyledTypografy> 
+            </StDiv>
+            : 
+            null
+        }    
+    </div>
+    )
 }
 
 export default connect( (store)=>(
@@ -48,5 +83,5 @@ export default connect( (store)=>(
         loadingReports : store.reports.loadingReports,
     }),
     {
-        reportsLoaded
+        reportsLoaded,reportsLoading
     })(Reports);

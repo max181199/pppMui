@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import WarningIcon from '@material-ui/icons/Warning';
+import { getQuery } from '../services/query-service'
 
 const LargePaperBlock = styled(Paper)`
     width : 44vw;
@@ -105,7 +106,12 @@ function ReportElement(props){
     }
 
     const SaveApi = ()=>{
-        return null
+        getQuery(`/downloadReport?path=${info.path}`)
+    }
+
+    const Delete = ()=>{
+        reportDeleted(index);
+        getQuery(`/delReport?id=${index}`)
     }
 
     return(
@@ -177,7 +183,7 @@ function ReportElement(props){
                                         placement="left" 
                                         title="Удалить"
                                 >
-                                    <StyledIconButton onClick={()=>{reportDeleted(index)}}>
+                                    <StyledIconButton onClick={()=>{ Delete() }}>
                                         <DeleteIcon fontSize='inherit'/>
                                     </StyledIconButton>
                                 </Tooltip>    

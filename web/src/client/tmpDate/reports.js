@@ -1,4 +1,4 @@
-export default [{
+[{
     "id": 345,
     "is_ready": true,
     "is_error": true,

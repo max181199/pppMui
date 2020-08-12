@@ -3,7 +3,7 @@ const updateReports = (state, action) => {
   if (state === undefined) {
     return {
       reports: [],
-      loadingReports: true
+      loadingReports: false
     };
   }
 

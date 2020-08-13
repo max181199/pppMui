@@ -549,7 +549,7 @@ function filterBarContentLG(props) {
 
 export default connect( (store)=>({
     filters : store.filters,
-    periods : store.periods
+    periods : store.periods.periods,
 }), {
     filtersChangedSearch,
     filtersChangedFilterBar,

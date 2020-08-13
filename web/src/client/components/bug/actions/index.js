@@ -5,6 +5,13 @@ const AddPhotos = (newValue) => {
     };
   };
 
+  const DropPhotos = () => {
+    return {
+      type: 'DROP_PHOTOS',
+    };
+  };
+
 export {
-    AddPhotos
+    AddPhotos,
+    DropPhotos
 }

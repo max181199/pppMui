@@ -13,6 +13,12 @@ const reducer = (state, action) => {
                photos : [ ...state.photos , ...action.payload]
             }
         }
+
+        case 'DROP_PHOTOS' : {
+            return { 
+                photos : []
+            }
+        }
         
         default:
             return state;

@@ -11,7 +11,15 @@ const AddPhotos = (newValue) => {
     };
   };
 
+  const DropPhoto = ( index ) => {
+    return {
+      index : index,
+      type  : 'DROP_PHOTO_ONLY'
+    }
+  }
+
 export {
     AddPhotos,
-    DropPhotos
+    DropPhotos,
+    DropPhoto
 }

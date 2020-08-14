@@ -19,6 +19,14 @@ const reducer = (state, action) => {
                 photos : []
             }
         }
+
+        case 'DROP_PHOTO_ONLY' : {
+            let tmp = state.photos
+            tmp.splice(action.index,1)
+            return {
+                photos : [ ...[],...tmp]
+            }
+        }
         
         default:
             return state;

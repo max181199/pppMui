@@ -78,5 +78,10 @@
     "webpack-merge": "4.2.1",
     "whatwg-fetch": "3.0.0",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@editorjs/editorjs": "^2.18.0",
+    "@editorjs/paragraph": "^2.7.0",
+    "react-editor-js": "^1.6.2"
   }
 }

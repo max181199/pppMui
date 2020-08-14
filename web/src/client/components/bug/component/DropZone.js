@@ -4,11 +4,11 @@ import { useDropzone } from "react-dropzone";
 
 const StDiv = styled.div`
     position : fixed;
-    top : ${ document.documentElement.clientHeight/2 -195}px;
-    left : ${ document.documentElement.clientWidth/2 -195}px;
+    top : calc( ${ props => props.size[1]/2}px - 29.5vmin );
+    left : calc( ${ props => props.size[0]/2}px - 29.5vmin ) ;
     background-color : rgba(240, 240, 240, 1);
-    height : 390px;
-    width : 390px;
+    height : 59vmin;
+    width : 59vmin;
     border-radius : 100%;
     outline: none;
     text-align: center;
@@ -16,11 +16,11 @@ const StDiv = styled.div`
     & > p {
         align-self : center;
         color : grey;
-        font-size : 24px;
+        font-size : 5vmin;
     }
 `;
 
-const DropZone = ({ onDrop, accept })=>{
+const DropZone = ({ onDrop, accept , size })=>{
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -30,7 +30,7 @@ const DropZone = ({ onDrop, accept })=>{
     return(
         <div {...getRootProps()}>
             <input {...getInputProps()} />
-            <StDiv>
+            <StDiv size={size}>
             {isDragActive ? (
                 <p> Отпустите изображение, чтобы загрузить его</p>
             ) : (

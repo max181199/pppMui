@@ -5,7 +5,11 @@ import PreviewElement from './PreviewElement'
 import Grid from '@material-ui/core/Grid';
 
 const Stp = styled.p`
-    font-size : 24px;
+    font-size : calc( 20px + 1vw);
+`;
+
+const StpBig = styled.p`
+    font-size : calc( 40px + 1vw);
 `;
 
 const PreviewZone = (props)=>{
@@ -16,7 +20,7 @@ const PreviewZone = (props)=>{
         photos.length <= 0
         ?
         <div>
-            <p> Изображения отсутствуют</p>
+            <StpBig> Изображения отсутствуют</StpBig>
             <Stp> {`  Спасибо за ваши отзывы!!!   `} </Stp>
         </div>
         

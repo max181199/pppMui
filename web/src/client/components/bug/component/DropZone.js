@@ -27,6 +27,7 @@ const DropZone = ({ onDrop, accept , size })=>{
         accept
       });
 
+
     return(
         <div {...getRootProps()}>
             <input {...getInputProps()} />

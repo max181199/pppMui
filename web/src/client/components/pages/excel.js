@@ -182,7 +182,7 @@ const TypographyTitleLarge = styled(Typography)`
     color : white;
     width  : 46vw;
     min-width : 628px;
-    align-self : end;
+    align-self : center;
     text-align : center;
 `;
 
@@ -192,7 +192,7 @@ const TypographyTitleMedium = styled(Typography)`
     color : white;
     width  : 46vw;
     min-width : 628px;
-    align-self : end;
+    align-self : center;
     text-align : center;
 `;
 

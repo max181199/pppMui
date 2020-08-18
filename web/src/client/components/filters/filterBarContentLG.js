@@ -93,7 +93,7 @@ const StyledButtonTwo = styled(Button)`
 `;
 
 const AccordionSummaryTypografy = styled(Typography)`
-    align-self : center;
+    align-self : end;
     font-size : 27px;
 `;
 

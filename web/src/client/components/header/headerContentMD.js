@@ -11,7 +11,6 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
-import Bug from '../bug/index'
 
 const StyledMainGrid = styled(Grid)`
     margin : 0;
@@ -113,7 +112,6 @@ function MediumHeaderContent(props){
                 <TitleTypografy variant='h4' > Примечания на  <br/> правой панели </TitleTypografy>
             </StyledGrid>
             <StyledGrid item>
-                <Bug/>
                 <Tooltip  
                     title={currentFilterIcon === "close" ? "Показать фильтры" : "Скрыть фильтры"}
                 > 

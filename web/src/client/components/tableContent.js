@@ -25,33 +25,33 @@ const Typography9on6 = styled(Typography)`
     font-size : calc( 9px + 0.6vw);
     line-height : 1.2;
     text-align : left;
-    align-self : center;
+    align-self : end;
 `;
 
 const Typography9on6Center = styled(Typography)`
     font-size : calc( 9px + 0.6vw);
     line-height : 1.2;
     text-align : center;
-    align-self : center;
+    align-self : end;
 `;
 
 const Typography8on6 = styled(Typography)`
     font-size : calc( 8px + 0.6vw);
     line-height : 1.1;
-    align-self : center;
+    align-self : end;
 `;
 
 const Typography8on6Red = styled(Typography)`
     font-size : calc( 8px + 0.6vw);
     line-height : 1.1;
-    align-self : center;
+    align-self : end;
     color : #e53935;
 `;
 
 const Typography8on6Green = styled(Typography)`
     font-size : calc( 8px + 0.6vw);
     line-height : 1.1;
-    align-self : center;
+    align-self : end;
     color : #43a047;
 `;
 
@@ -60,7 +60,7 @@ const Typography8on6Green = styled(Typography)`
 const Typography8on6Grey = styled(Typography)`
     font-size : calc( 8px + 0.6vw);
     line-height : 1.1;
-    align-self : center;
+    align-self : end;
     color : #9F9F9F ;
 `;
 
@@ -88,7 +88,7 @@ const BoxBlock10 = styled(Box)`
 const AvatarStyled = styled(Avatar)`    
     height : calc(15px + 0.6vw);
     width  : calc(15px + 0.6vw);
-    align-self : center;
+    align-self : end;
 `;
 
 const Typography9on6ml20 = styled(Typography)`
@@ -96,7 +96,7 @@ const Typography9on6ml20 = styled(Typography)`
     margin-left : 20px;
     line-height : 1.1;
     text-align : left;
-    align-self : center;
+    align-self : end;
 `;
 
 const Typography9on6ml5 = styled(Typography)`
@@ -104,7 +104,7 @@ const Typography9on6ml5 = styled(Typography)`
     margin-left : 5px;
     line-height : 1.1;
     text-align : left;
-    align-self : center;
+    align-self : end;
 `;
 
 const Typography9on6ml10 = styled(Typography)`
@@ -112,7 +112,7 @@ const Typography9on6ml10 = styled(Typography)`
     margin-left : 10px;
     line-height : 1.1;
     text-align : left;
-    align-self : center;
+    align-self : end;
 `;
 
 const StyledIconButton = styled(IconButton)`

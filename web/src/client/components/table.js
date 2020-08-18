@@ -163,7 +163,7 @@ const TypographySUPR = styled(Typography)`
   const SnippetTP = styled(Typography)`
         color : #9e9e9e;
         font-size : calc( 16px + 0.8vw);
-        align-self : center;
+        align-self : end;
         text-align : center;
         
   `;
@@ -254,8 +254,8 @@ function table(props){
             })
             snippetsLoaded([])
             snippetsLoading()
-            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '<--- Snippets Init'
-                (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '/snippets/'
+                (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})   /// Возможно стоит убрать JSON.parse
             setSnipSt('init')
         } else {
             updateTableFilters({
@@ -274,8 +274,8 @@ function table(props){
             })
             snippetsLoaded([])
             snippetsLoading()
-            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '<--- Snippets Init'
-                (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '/snippets/'
+                (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}}) /// Возможно стоит убрать JSON.parse
             setSnipSt('init')
         }
         setStatus('init')
@@ -321,8 +321,8 @@ function table(props){
             snippetsLoading()
             clearTimeout(time)
             let id = setTimeout(()=>{
-                getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then( 
-                    (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})
+                getQuery( "/testSnippets/", toSnippetsRequestForm(filters,0,20)).then(  /// '/snippets/'
+                    (data)=> { if (data != 0) {snippetsLoaded(JSON.parse(data))}})   ///  Возможно стоит убрать JSON.parse
             },3000)
             setTime(id)
         } 
@@ -333,8 +333,8 @@ function table(props){
         if( snippets.length !== 0) {
             setOffset(offset + 20);
             snippetsLoading()
-            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,offset,20)).then( 
-                (data)=> { if (data != 0) {newSnippetsLoaded(JSON.parse(data))}})
+            getQuery( "/testSnippets/", toSnippetsRequestForm(filters,offset,20)).then(  /// '/snippets/'
+                (data)=> { if (data != 0) {newSnippetsLoaded(JSON.parse(data))}}) /// Возможно стоит убрать JSON.parse
         }
     }
     

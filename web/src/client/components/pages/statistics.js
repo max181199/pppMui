@@ -12,8 +12,8 @@ import { getQuery } from '../../services/query-service'
 function Statistics( props ) {
     const { filterIcon  , newPeriodsList } = props;
     useEffect(()=>{
-        getQuery( "/testPeriods").then(  
-                (data)=> {  if (data != 0) {newPeriodsList(JSON.parse(data))}})
+        getQuery( "/testPeriods").then(  /// /periodsList 
+                (data)=> {  if (data != 0) {newPeriodsList(JSON.parse(data))}}) /// Возможно стоит убрать JSON.parse
     },[])
 
     return(

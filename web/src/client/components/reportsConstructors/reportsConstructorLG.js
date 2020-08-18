@@ -20,6 +20,10 @@ import { getQuery } from '../../services/query-service'
 import { toReportsRequestForm } from '../../services/transform'
 
 
+const StMenuItem = styled(MenuItem)`
+    font-size : calc(6px + 1vw);
+`;
+
 const MediumSearchPaper = styled(Paper)`
     min-height : 5vw;
     height     : 8vh;
@@ -145,7 +149,7 @@ const SortStyledFormControl = styled(FormControl)`
 const StyledButton = styled(Button)`
     background-color : ${blue[800]};
     color : white;
-    font-size : max( 16px , calc( 1px + 1vw));
+    font-size : calc( 6px + 0.8vw);
     margin-left : 0.7vw;
     margin-bottom : 2vh;
     padding : 0;
@@ -161,7 +165,7 @@ const StyledButton = styled(Button)`
 const StyledCancelButton = styled(Button)`
     background-color : ${blue[800]};
     color : white;
-    font-size : max( 16px , calc( 1px + 1vw));
+    font-size : calc( 6px + 0.8vw);
     margin-left : 2vw;
     margin-bottom : 2vh;
     padding : 0;
@@ -321,21 +325,21 @@ function Main( props ) {
         reportsLoading()
         getQuery('/excel/' , toReportsRequestForm(filters))
         .then( () =>{
-            getQuery('/testReports')
+            getQuery('/testReports') /// '/reportsInfo'
             .then((data) => {
-                reportsLoaded(data);
+                reportsLoaded(JSON.parse(data)); /// Возможно стоит убрать JSON.parse 
             });
         })
     }
 
     function getSelectElement( el , num ) {
         return(
-            <MenuItem key={`${num}`} value={ `${el}` }>{el}</MenuItem>
+            <StMenuItem key={`${num}`} value={ `${el}` }>{el}</StMenuItem>
         )
     }
     function getMediumSelectElement( el , num ) {
         return(
-            <MenuItem key={`${num}`} value={ `${el}` }>{el}</MenuItem>
+            <StMenuItem key={`${num}`} value={ `${el}` }>{el}</StMenuItem>
         )
     }
     return(
@@ -488,7 +492,7 @@ function Main( props ) {
                                         else ( updateReportFilters({compPeriod : e.target.value}) )
                                     }}
                                 >
-                                    <MenuItem key={'${num}?m123'} value={ `Не выбрано` }>{`Не выбрано`}</MenuItem>
+                                    <StMenuItem key={'${num}?m123'} value={ `Не выбрано` }>{`Не выбрано`}</StMenuItem>
                                     {periods.map( (item,num) => getMediumSelectElement(item,num))}
                                 </Select>
                             </StyledFormControl>
@@ -511,14 +515,14 @@ function Main( props ) {
                                         updateReportFilters( {profile : e.target.value})
                                     }}
                                 >
-                                    <MenuItem value={'Все профили'}>Все профили</MenuItem>
-                                    <MenuItem value={'Бухгалтерия и кадры бюджетной организации'}>Бухгалтерия и кадры бюджетной организации</MenuItem>
-                                    <MenuItem value={'Бухгалтерия и кадры'}>Бухгалтерия и кадры</MenuItem>
-                                    <MenuItem value={'Кадры'}>Кадры</MenuItem>
-                                    <MenuItem value={'Юристы'}>Юристы</MenuItem>
-                                    <MenuItem value={'Универсальный'}>Универсальный</MenuItem>
-                                    <MenuItem value={'Универсальный для бюджетной организации'}>Универсальный для бюджетной организации</MenuItem>
-                                    <MenuItem value={'Специалист по закупкам'}>Специалист по закупкам</MenuItem>
+                                    <StMenuItem value={'Все профили'}>Все профили</StMenuItem>
+                                    <StMenuItem value={'Бухгалтерия и кадры бюджетной организации'}>Бухгалтерия и кадры бюджетной организации</StMenuItem>
+                                    <StMenuItem value={'Бухгалтерия и кадры'}>Бухгалтерия и кадры</StMenuItem>
+                                    <StMenuItem value={'Кадры'}>Кадры</StMenuItem>
+                                    <StMenuItem value={'Юристы'}>Юристы</StMenuItem>
+                                    <StMenuItem value={'Универсальный'}>Универсальный</StMenuItem>
+                                    <StMenuItem value={'Универсальный для бюджетной организации'}>Универсальный для бюджетной организации</StMenuItem>
+                                    <StMenuItem value={'Специалист по закупкам'}>Специалист по закупкам</StMenuItem>
                                 </Select>
                             </StyledFormControl>
                         </Grid>
@@ -532,15 +536,15 @@ function Main( props ) {
                                         else { updateReportFilters( {compProfile : e.target.value}) }
                                     }}
                                 >
-                                    <MenuItem value={ `Не выбрано` }>{`Не выбрано`}</MenuItem>
-                                    <MenuItem value={'Все профили'}>Все профили</MenuItem>
-                                    <MenuItem value={'Бухгалтерия и кадры бюджетной организации'}>Бухгалтерия и кадры бюджетной организации</MenuItem>
-                                    <MenuItem value={'Бухгалтерия и кадры'}>Бухгалтерия и кадры</MenuItem>
-                                    <MenuItem value={'Кадры'}>Кадры</MenuItem>
-                                    <MenuItem value={'Юристы'}>Юристы</MenuItem>
-                                    <MenuItem value={'Универсальный'}>Универсальный</MenuItem>
-                                    <MenuItem value={'Универсальный для бюджетной организации'}>Универсальный для бюджетной организации</MenuItem>
-                                    <MenuItem value={'Специалист по закупкам'}>Специалист по закупкам</MenuItem>
+                                    <StMenuItem value={ `Не выбрано` }>{`Не выбрано`}</StMenuItem>
+                                    <StMenuItem value={'Все профили'}>Все профили</StMenuItem>
+                                    <StMenuItem value={'Бухгалтерия и кадры бюджетной организации'}>Бухгалтерия и кадры бюджетной организации</StMenuItem>
+                                    <StMenuItem value={'Бухгалтерия и кадры'}>Бухгалтерия и кадры</StMenuItem>
+                                    <StMenuItem value={'Кадры'}>Кадры</StMenuItem>
+                                    <StMenuItem value={'Юристы'}>Юристы</StMenuItem>
+                                    <StMenuItem value={'Универсальный'}>Универсальный</StMenuItem>
+                                    <StMenuItem value={'Универсальный для бюджетной организации'}>Универсальный для бюджетной организации</StMenuItem>
+                                    <StMenuItem value={'Специалист по закупкам'}>Специалист по закупкам</StMenuItem>
                                 </Select>
                             </StyledFormControl>
                         </Grid>
@@ -561,16 +565,16 @@ function Main( props ) {
                                     value={reportFilters.sort}
                                     onChange={(e)=>{updateReportFilters({sort : e.target.value})}}
                                 >
-                                    <MenuItem value={ `По убыванию кликов` }>{`По убыванию кликов`}</MenuItem>
-                                    <MenuItem value={'По возрастанию кликов'}>По возрастанию кликов</MenuItem>
-                                    <MenuItem value={'По убыванию кликов по I'}>По убыванию кликов по I</MenuItem>
-                                    <MenuItem value={'По возрастанию кликов по I'}>По возрастанию кликов по I</MenuItem>
-                                    <MenuItem value={'По убыванию отказов'}>По убыванию отказов</MenuItem>
-                                    <MenuItem value={'По возрастанию отказов'}>По возрастанию отказов</MenuItem>
-                                    <MenuItem value={'По убыванию времени отказа'}>По убыванию времени отказа</MenuItem>
-                                    <MenuItem value={'По возрастанию времени отказа'}>По возрастанию времени отказа</MenuItem>
-                                    <MenuItem value={'По убыванию позиции в РДН'}>По убыванию позиции в РДН</MenuItem>
-                                    <MenuItem value={'По возрастанию позиции в РДН'}>По возрастанию позиции в РДН</MenuItem>
+                                    <StMenuItem value={ `По убыванию кликов` }>{`По убыванию кликов`}</StMenuItem>
+                                    <StMenuItem value={'По возрастанию кликов'}>По возрастанию кликов</StMenuItem>
+                                    <StMenuItem value={'По убыванию кликов по I'}>По убыванию кликов по I</StMenuItem>
+                                    <StMenuItem value={'По возрастанию кликов по I'}>По возрастанию кликов по I</StMenuItem>
+                                    <StMenuItem value={'По убыванию отказов'}>По убыванию отказов</StMenuItem>
+                                    <StMenuItem value={'По возрастанию отказов'}>По возрастанию отказов</StMenuItem>
+                                    <StMenuItem value={'По убыванию времени отказа'}>По убыванию времени отказа</StMenuItem>
+                                    <StMenuItem value={'По возрастанию времени отказа'}>По возрастанию времени отказа</StMenuItem>
+                                    <StMenuItem value={'По убыванию позиции в РДН'}>По убыванию позиции в РДН</StMenuItem>
+                                    <StMenuItem value={'По возрастанию позиции в РДН'}>По возрастанию позиции в РДН</StMenuItem>
                                 </Select>
                             </SortStyledFormControl>
                         </Grid>

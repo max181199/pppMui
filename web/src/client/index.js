@@ -39,7 +39,7 @@ const theme = createMuiTheme({
     },
     MuiMenu : {
       paper : {
-        maxHeight: 'calc( max( 36px , 1.7vw ) * 8  + 20px)'
+        maxHeight: 'calc( 33vh )'
       }
     }
   },

@@ -25,8 +25,8 @@ const Header = () => {
 
   const [ date, setDate] = useState('')
   useEffect(()=>{
-    getQuery( "/testDate" ).then(  
-                (data)=> { if (data != 0) {setDate(data)}})
+    getQuery( "/testDate" ).then(  /// '/testDate' => '/getUpdateDate'
+                (data)=> { if (data != 0) {setDate(data)}}) /// data => data[0]['update_date']
   },[])
 
   return (

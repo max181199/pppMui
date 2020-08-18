@@ -22,32 +22,32 @@ const LargePaperBlock = styled(Paper)`
     border-radius : 0px;
     border-top : solid 1px lightgrey;
     border-bottom : solid 1px lightgrey;
-    padding-top : max(2vh , 10px);
-    padding-bottom : max(2vh , 10px);
-    padding-left : max(1vw , 5px);
-    padding-right : max(1vw , 5px);
+    padding-top : 2vh;
+    padding-bottom : 2vh;
+    padding-left : 1vw;
+    padding-right : 1vw;
 `;
 
 const StyledIconButton = styled(IconButton)`
-    font-size : max( 26px , 1.7vw);
+    font-size : calc(6px + 2vw);
 `;
 
 const StyledTypografy = styled(Typography)`
-    font-size : max( 16px , 2px + 1vw);
-    align-self: center;
+    font-size : calc(6px + 0.8vw);
+    align-self: end;
     line-height : 1.5;
 `;
 
 const StyledTypografyWithMargin = styled(Typography)`
-    font-size : max( 16px , 2px + 1vw);
-    margin-left : max( 5px , 0.5vw );
-    align-self: center;
+    font-size : calc(6px + 0.8vw);
+    margin-left : calc(2px + 0.5vw);
+    align-self: end;
     line-height : 1.5;
 `;
 
 
 const BoxIcon = styled(Box)`
-    font-size : max( 26px , 1.7vw);
+    font-size : calc(6px + 1.8vw);
     margin : 0;
     padding : 0;
 `;
@@ -58,8 +58,8 @@ const WarningIconStyled = styled(WarningIcon)`
 `;
 
 const StyledCircularProgress = styled(CircularProgress)`
-    margin-left : max( 5px , 0.5vw );
-    align-self : center;
+    margin-left : calc(2px + 0.5vw);
+    align-self : end;
 `;
 
 function ReportElement(props){
@@ -192,7 +192,7 @@ function ReportElement(props){
                     </Box>
                 </Grid>
                 <Grid item >
-                    <Box ml={ 'max( 10px , 1vw )'}>
+                    <Box ml={ '1vw'}>
                         <Grid
                             container
                             direction="column"
@@ -398,7 +398,7 @@ function ReportElement(props){
                                         ? 
                                         null 
                                         :
-                                        <StyledCircularProgress size={'max( 20px , 1vw )'}  />
+                                        <StyledCircularProgress size={'calc(20px + 0.8vw)'}  />
                                     } 
                                 </Box>
                             </Grid>

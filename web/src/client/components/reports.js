@@ -2,16 +2,16 @@ import React, { useEffect, useState} from 'react';
 import ReportElement from './reportsElement';
 import { connect } from 'react-redux';
 import { reportsLoaded,reportsLoading } from '../actions';
-import { Typography, Box  } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import grey from '@material-ui/core/colors/grey';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getQuery } from '../services/query-service'
 
 const StyledTypografy = styled(Typography)`
-    font-size : max( 24px , calc( 12px + 1vw ));
+    font-size : calc( 6px + 2vw );
     color : ${grey[500]};
-    margin-top : max( 25px , 5vh );
+    margin-top : 5vh;
     text-align : center;
 `;
 const StCircularProgress = styled(CircularProgress)`
@@ -32,8 +32,8 @@ const Reports = (props) => {
     useEffect(() => {
         reportsLoaded([])
         reportsLoading()
-        getQuery( "/testReports" ).then( 
-                (data)=> { if (data != 0) {reportsLoaded(JSON.parse(data))}})
+        getQuery( "/testReports" ).then(  /// '/reportsInfo'
+                (data)=> { if (data != 0) {reportsLoaded(JSON.parse(data))}}) /// Возможно стоит убрать JSON.parse
     },[])
 
     useEffect(()=>{
@@ -47,8 +47,8 @@ const Reports = (props) => {
 
     const updateReports = ()=>{
         reportsLoading()
-        getQuery( "/testReports" ).then( 
-                (data)=> { if (data != 0) {reportsLoaded(JSON.parse(data))}})
+        getQuery( "/testReports" ).then(  /// '/reportsInfo'
+                (data)=> { if (data != 0) {reportsLoaded(JSON.parse(data))}}) /// Возможно стоит убрать JSON.parse
     }
 
   return (

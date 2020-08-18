@@ -120,7 +120,7 @@ const STFTA = styled(TextField)`
         font-size :  calc( 18px + 0.8vw);
         background-color : white;
         padding : 0px 15px;
-        align-self : center;
+        align-self : end;
     }
     & .MuiInputBase-root{
         font-size : calc( 12px + 0.8vw);
@@ -163,7 +163,7 @@ const StCir = styled(CircularProgress)`
     margin-top : calc( 25px + 10vh);
     height : calc( 25vw) !important;
     width : calc( 25vw) !important;
-    align-self : center;
+    align-self : end;
 `;
 
 const StDivCir = styled.div`
@@ -253,6 +253,7 @@ function Bugs(props){
             let NumberOfBlock = 0;
             let CurrentBlockSize = 0;
             let MassiveOfBlocks = {};
+            let BigSizeArray = []
 
             MassiveOfBlocks[`${NumberOfBlock}`] = []
             photos.forEach( (element)=>{
@@ -262,11 +263,18 @@ function Bugs(props){
                 } else {
                     NumberOfBlock +=1;
                     CurrentBlockSize = element.size;
-                    MassiveOfBlocks[`${NumberOfBlock}`] = []
-                    MassiveOfBlocks[`${NumberOfBlock}`].push(element)
+                    if( CurrentBlockSize <= MaxBlockMessageSize)
+                    {
+                        MassiveOfBlocks[`${NumberOfBlock}`] = []
+                        MassiveOfBlocks[`${NumberOfBlock}`].push(element)
+                    } else {
+                        BigSizeArray.push(element)
+                        CurrentBlockSize = 0;
+                    }    
                 }
             });
             DropPhotos();
+            AddPhotos(BigSizeArray);
             for (let  block in MassiveOfBlocks) {
                 setErr(false)
                 sendEmail(MassiveOfBlocks[block]).then( data => { if(data !== 'ok'){setErr(true)}  })

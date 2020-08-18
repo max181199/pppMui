@@ -41,28 +41,28 @@ const CardActionsST = styled(CardActions)`
 
 const CardActionAreaBaseSt = styled(CardActionArea)`
     background-color : rgba(0,0,0,0.8);
-    height : 90vh;
-    width : 84vw;
+    height : 96vh;
+    width : 96vw;
     align-items: center;
     display: flex;
 `;
 
 const Base = styled(Card)`
     background-color : white;
-    margin-left : 8vw;
-    margin-right : 8vw;
-    margin-top : 5vh;
-    margin-bottom : 5vh;
-    width : 84vw;
-    height : 90vh;
+    margin-left : 2vw;
+    margin-right : 2vw;
+    margin-top : 2vh;
+    margin-bottom : 2vh;
+    width : 96vw;
+    height : 96vh;
     outline: none;
     display: flex;
     align-items: center;
 `;
 
 const CardMediaBaseSt = styled(CardMedia)`
-    max-height : 90vh;
-    max-width : 84vw;
+    max-height : 96vh;
+    max-width : 96vw;
     width : auto;
     height : auto;
 `;

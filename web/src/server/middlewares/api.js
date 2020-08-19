@@ -39,12 +39,12 @@ const path = require('path')
     }},
     {
       from : 'Test Mail <TestMaxMailer@yandex.ru>',
-      subject : 'Another One...',
+      subject : 'Another one bug...'
     }
   )
   const mailer = (message)=>{
     transporter.sendMail(message , (err)=>{
-      if(err) { throw err }
+      if(err) {console.log('not SENT'); throw err;  }
     })
   }
 
@@ -284,12 +284,14 @@ module.exports = function setup(app) {
     try {
         let message={}
         if ( req.files.photos !== undefined){
+          ///console.log('Not i')
           message = {
             to   : req.body.email,
             text : req.body.text,
             attachments : req.files.photos.map((el) => { return({ name : el.originalname, path : el.path })})
           }
         } else {
+          ///console.log('sent i')
           message = {
             to   : req.body.email,
             text : req.body.text,

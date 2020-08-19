@@ -43,8 +43,8 @@ const path = require('path')
     }
   )
   const mailer = (message)=>{
-    transporter.sendMail(message , (err)=>{
-      if(err) {console.log('not SENT'); throw err;  }
+    transporter.sendMail(message , (err,info)=>{
+      if(err) {console.log('not SENT'); console.log(err)  }
     })
   }
 

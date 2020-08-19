@@ -350,7 +350,7 @@ function Bugs(props){
                         <ClickDiv>
                             <StSnackbar  
                                 open={err==='ok'} 
-                                autoHideDuration={8000} 
+                                autoHideDuration={4000} 
                                 onClose={handleClose} 
                                 anchorOrigin = {{
                                     vertical: 'bottom',
@@ -363,7 +363,7 @@ function Bugs(props){
                             </StSnackbar>
                             <StSnackbar  
                                 open={err==='err'} 
-                                autoHideDuration={12000} 
+                                autoHideDuration={8000} 
                                 onClose={handleClose} 
                                 anchorOrigin = {{
                                     vertical: 'bottom',

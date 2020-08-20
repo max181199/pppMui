@@ -1,55 +1,7 @@
-
-
 const fs = require('fs')
 const {resolve} = require('path');
 const {pgp, client} = require('./pgp');
-const path = require('path')
-/**
- *  File transfer begin
- */
-    const multer  = require('multer')
-    const storage = multer.diskStorage({
-      destination : './Download/Picture/',
-      filename  :  (req,file,cb) => {
-          cb(null,  Date.now() + '-' + file.originalname );
-      }
-    })
-    const upload = multer({
-      storage : storage,
-    }).fields( [
-      { name : 'email' , maxCount : 1},
-      { name : 'text' , maxCount : 1},
-      { name : 'photos' , maxCount : 99}
-    ]) 
-/**
- *  File transfer end
- */
-
-/** Nodemailer Begin */
-  const nodemailer = require('nodemailer')    
-  const transporter = nodemailer.createTransport({
-    pool : true,
-    maxConnections : 10,
-    host: 'smtp.yandex.ru',
-    port: 465,
-    secure : true,
-    auth: {
-        user: 'TestMaxMailer@yandex.ru',
-        pass: '123789456TMM'
-    }},
-    {
-      from : 'Test Mail <TestMaxMailer@yandex.ru>',
-      subject : 'Another one bug...'
-    }
-  )
-  const mailer = (message)=>{
-    transporter.sendMail(message , (err,info)=>{
-      if(err) {console.log('not SENT'); console.log(err)  }
-    })
-  }
-
-
-/** Nodemailer End   */ 
+const path = require('path') 
 
 const reportBuilder = require('./report-builder');
 const { transcriptProfile, transcriptDate, transcriptDateTable, getMonth } = require('./transcript');
@@ -279,39 +231,6 @@ const dataTransform = (data, isComparison, period, compPeriod) => {
 }
 
 module.exports = function setup(app) {
-
-  app.post( '/api/mail', upload ,( req , res ) =>{
-    try {
-        let message={}
-        if ( req.files.photos !== undefined){
-          ///console.log('Not i')
-          message = {
-            to   : req.body.email,
-            text : req.body.text,
-            attachments : req.files.photos.map((el) => { return({ name : el.originalname, path : el.path })})
-          }
-        } else {
-          ///console.log('sent i')
-          message = {
-            to   : req.body.email,
-            text : req.body.text,
-          }
-        }
-        
-        mailer(message)
-
-        res.send(JSON.stringify({ 
-          state : 'ok'
-        }))
-
-    } catch(err) {
-      console.log(err);
-      res.send(JSON.stringify({ 
-        state : 'error'
-      }));
-    }
-
-  })
 
   app.get('/api/testSnippets' , async (req , res) =>{
     try {

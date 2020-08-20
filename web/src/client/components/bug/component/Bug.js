@@ -254,31 +254,30 @@ function Bugs(props){
         });
         data.append('email',message.email)
         data.append('text',message.text)        
-        let response = await fetch('/api/mail', {
+        let response = await fetch('http://localhost:33033/api/mail', {
             method: 'POST',
             body: data
         });
         let result = await response.json();
+        console.log('RESULT:::',result)
         if ( result.state == 'ok' ){
             setMessage({
                 email : 'mx181199@gmail.com',
                 text  : ''
             })
-        } 
-        if(result.state === 'error'){
+        } else {
             AddPhotos(images)
         }
         return result.state
     }
 
-    const BlockSend = ( )=>{
+    const BlockSend = () => {
         setState('send')
             const MaxBlockMessageSize = 24000000;
             let NumberOfBlock = 0;
             let CurrentBlockSize = 0;
             let MassiveOfBlocks = {};
             let BigSizeArray = []
-
             MassiveOfBlocks[`${NumberOfBlock}`] = []
             photos.forEach( (element)=>{
                 CurrentBlockSize += element.size;
